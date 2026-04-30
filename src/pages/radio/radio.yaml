@@ -1,18 +1,120 @@
 substitutions:
+  radio_mp_entity:  "media_player.esp32_p4_waveshare_1_esp32_p4_media_player"
+  radio_station_1:  "https://stream2.rc.lt/rc128.mp3"
+  radio_station_2:  "http://stream.m-1.fm/m1/mp3"
 
-  radio_station:     "http://ep128.hostingradio.ru:8030/ep128"
-  radio_mp_entity:   "media_player.esp32_p4_waveshare_1_esp32_p4_media_player"
+globals:
+  - id: current_radio_station
+    type: int
+    restore_value: false
+    initial_value: '1'
 
 text_sensor:
   - platform: homeassistant
     id: media_player_esphome
     entity_id: "${radio_mp_entity}"
 
+script:
+  - id: play_selected_station
+    then:
+      - if:
+          condition:
+            lambda: return id(current_radio_station) == 1;
+          then:
+            - homeassistant.action:
+                action: media_player.play_media
+                data:
+                  entity_id: "${radio_mp_entity}"
+                  media_content_type: music
+                  media_content_id: "${radio_station_1}"
+          else:
+            - homeassistant.action:
+                action: media_player.play_media
+                data:
+                  entity_id: "${radio_mp_entity}"
+                  media_content_type: music
+                  media_content_id: "${radio_station_2}"
+
 lvgl:
   pages:
     - id: radio_page
       bg_color: color_slate_blue_gray
       widgets:
+
+        # ── Station selector ─────────────────────────────────────────────────
+        - obj:
+            id: station1_btn
+            x: 390
+            y: 100
+            width: 280
+            height: 90
+            radius: 12
+            bg_color: color_sky_blue
+            border_opa: transp
+            shadow_opa: transp
+            clickable: true
+            on_click:
+              - lambda: id(current_radio_station) = 1;
+              - lvgl.obj.update:
+                  id: station1_btn
+                  bg_color: color_sky_blue
+              - lvgl.obj.update:
+                  id: station2_btn
+                  bg_color: color_steel_blue
+              - if:
+                  condition:
+                    lambda: return id(media_player_esphome).state != "idle";
+                  then:
+                    - script.execute: play_selected_station
+                    - lvgl.obj.update:
+                        id: circular_button_obj
+                        shadow_color: color_sky_blue
+                    - lvgl.label.update:
+                        id: label_play
+                        text_color: color_sky_blue
+                        text: "${pause_icon}"
+            widgets:
+              - image:
+                  align: center
+                  src: radiocentras_img
+
+        - obj:
+            id: station2_btn
+            x: 390
+            y: 210
+            width: 280
+            height: 90
+            radius: 12
+            bg_color: color_steel_blue
+            border_opa: transp
+            shadow_opa: transp
+            clickable: true
+            on_click:
+              - lambda: id(current_radio_station) = 2;
+              - lvgl.obj.update:
+                  id: station2_btn
+                  bg_color: color_sky_blue
+              - lvgl.obj.update:
+                  id: station1_btn
+                  bg_color: color_steel_blue
+              - if:
+                  condition:
+                    lambda: return id(media_player_esphome).state != "idle";
+                  then:
+                    - script.execute: play_selected_station
+                    - lvgl.obj.update:
+                        id: circular_button_obj
+                        shadow_color: color_sky_blue
+                    - lvgl.label.update:
+                        id: label_play
+                        text_color: color_sky_blue
+                        text: "${pause_icon}"
+            widgets:
+              - image:
+                  align: center
+                  src: m1_img
+
+        # ── Play / stop button ───────────────────────────────────────────────
         - obj:
             id: circular_button_obj
             width: 200
@@ -43,13 +145,7 @@ lvgl:
                         id: label_play
                         text_color: color_sky_blue
                         text: "${pause_icon}"
-                    - homeassistant.action:
-                        action: media_player.play_media
-                        data:
-                          entity_id: "${radio_mp_entity}"
-                          media_content_type: music
-                          media_content_id: "${radio_station}"
-
+                    - script.execute: play_selected_station
                   else:
                     - lvgl.obj.update:
                         id: circular_button_obj
@@ -93,7 +189,6 @@ lvgl:
             shadow_color: 0x000000
             shadow_ofs_x: 8
             shadow_ofs_y: 4
-            # shadow_opa: 80%
 
         - obj:
             id: circular_button_obj3
@@ -105,8 +200,6 @@ lvgl:
             radius: 95
             border_opa: transp
             bg_color: color_slate_blue_gray
-            # shadow_width: 20
-            # shadow_color: color_black
             widgets:
               - label:
                   id: label_play
@@ -115,14 +208,7 @@ lvgl:
                   text_font: mdi_icons_60
                   text: "${play_icon}"
 
-
-        - image:
-            x: 400
-            y: 100
-            src: europa_plus_img
-
-
-        # BACK
+        # ── Back ─────────────────────────────────────────────────────────────
         - obj:
             y: 0
             width: 120

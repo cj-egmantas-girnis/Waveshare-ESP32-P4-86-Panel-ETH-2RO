@@ -44,8 +44,8 @@ globals:
 
   - id: current_language
     type: std::string
-    initial_value: '"${secondary_language}"'
-    restore_value: yes
+    initial_value: '"lt"'
+    restore_value: no
 
   - id: current_mode
     type: int
@@ -80,7 +80,7 @@ switch:
     name: "Your language"
     id: language_switch
     widget: circle_settings_widget_lang_btn
-    restore_mode: RESTORE_DEFAULT_ON
+    restore_mode: RESTORE_DEFAULT_OFF
     on_turn_on:
       - i18n.set_locale:
           locale: "${secondary_language}"
@@ -96,9 +96,9 @@ switch:
       # - script.execute: update_loading_page
     on_turn_off:
       - i18n.set_locale:
-          locale: "en"
+          locale: "lt"
       - lambda: |-
-          id(current_language) = "en";
+          id(current_language) = "lt";
           ESP_LOGI("TEST", "Current locale i18n: %s", id(i18n_translations).get_current_locale().c_str());
           ESP_LOGI("TEST", "Current locale global: %s", id(current_language).c_str());
       - lvgl.image.update:
@@ -1596,7 +1596,7 @@ lvgl:
                           - image:
                               id: circle_settings_widget_lang_flag
                               align: center
-                              src: flags_ru_img
+                              src: flags_lt_img
                         on_click:
                           - switch.toggle: language_switch
 
@@ -1616,6 +1616,7 @@ mapping:
       nl: flags_nl_img
       si: flags_si_img
       pl: flags_pl_img
+      lt: flags_lt_img
 
 script:
 

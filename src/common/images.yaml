@@ -1,9 +1,16 @@
 ################# test ###########
 
-- file: 'assets/images/radio/europa_plus.png'
-  id: europa_plus_img
+- file: 'assets/images/radio/radiocentras.png'
+  id: radiocentras_img
   type: rgb565
-  resize: 291x600  # 194x400 * 1.5
+  resize: 240x127
+  transparency: alpha_channel
+  byte_order: little_endian
+
+- file: 'assets/images/radio/m1.png'
+  id: m1_img
+  type: rgb565
+  resize: 240x138
   transparency: alpha_channel
   byte_order: little_endian
 
@@ -434,6 +441,13 @@
   id: flags_si_img
   type: rgb565
   resize: 60x90
+  transparency: alpha_channel
+
+- file: 'assets/images/flags/lt.png'
+  id: flags_lt_img
+  type: rgb565
+  resize: 60x90
+  byte_order: little_endian
   transparency: alpha_channel
 
   #############################
