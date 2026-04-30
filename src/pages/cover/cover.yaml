@@ -1,5 +1,5 @@
-sensor:  
-  # Cover Current Position 
+sensor:
+  # Cover Current Position
   - platform: homeassistant
     id: ${widget_name}_current_pos_sensor
     entity_id: "${cover_entity}"
@@ -39,7 +39,7 @@ text_sensor:
           id: ${widget_name}_cover_name_label
           text: !lambda return x;
 
-        
+
   # Cover State
   - platform: homeassistant
     id: ${widget_name}_state_sensor
@@ -229,7 +229,7 @@ lvgl:
                               clickable: false
                               radius: 68
                               pad_all: 0
-                              bg_opa: transp 
+                              bg_opa: transp
                               border_opa: transp
                               shadow_width: 6
                               shadow_color: 0xFFFFFF
@@ -295,7 +295,7 @@ lvgl:
                               clickable: false
                               radius: 68
                               pad_all: 0
-                              bg_opa: transp 
+                              bg_opa: transp
                               border_opa: transp
                               shadow_width: 6
                               shadow_color: 0xFFFFFF
@@ -467,7 +467,7 @@ lvgl:
                   border_opa: transp
                   border_width: 0
                   shadow_opa: transp
-                  radius: 23 
+                  radius: 23
             on_click:
               - lvgl.widget.hide: cover_select_widget
               - lvgl.page.show: home_page

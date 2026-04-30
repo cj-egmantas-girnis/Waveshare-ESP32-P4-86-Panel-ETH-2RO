@@ -160,7 +160,7 @@ script:
     then:
       - lambda: |-
           int rooms = ${rooms_amount};
-          
+
           if (rooms >= 2) {
             lv_obj_set_width(id(room_select_widget), 285);
             lv_obj_set_width(id(room_select_widget_cont), 195);
@@ -170,7 +170,7 @@ script:
             lv_obj_add_flag(id(room_1_btn), LV_OBJ_FLAG_HIDDEN);
             lv_obj_add_flag(id(room_2_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           if (rooms >= 3) {
             lv_obj_set_width(id(room_select_widget), 368);
             lv_obj_set_width(id(room_select_widget_cont), 278);
@@ -178,7 +178,7 @@ script:
           } else {
             lv_obj_add_flag(id(room_3_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           if (rooms >= 4) {
             lv_obj_set_width(id(room_select_widget), 450);
             lv_obj_set_width(id(room_select_widget_cont), 360);

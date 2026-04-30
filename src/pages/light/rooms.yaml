@@ -20,7 +20,7 @@ packages:
       light_entity: "${light_entity_1}"
       widget_name: "${room_name}_light1"
       room_prefix: "${room_name}"
-      
+
   light_2: !include
     file: light.yaml
     vars:

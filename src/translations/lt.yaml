@@ -1,0 +1,126 @@
+loading:
+  synchronization: "Sinchronizacija..."
+  connection_api: "Jungiamasi prie API..."
+
+ota:
+  start:
+    primary: "Pradedamas OTA!"
+    secondary: "Palaukite..."
+  end:
+    primary: "Atnaujinimas baigtas!"
+    secondary: "Paleidžiama iš naujo..."
+  error:
+    primary: "Atnaujinimo KLAIDA!"
+    secondary: "Paleidžiama iš naujo..."
+  progress: "Programinės įrangos eiga %0.1f%%"
+
+settings:
+  backlight: "Ekrano šviesumas"
+  sleep_time: "Miego laikas"
+
+sleep_time:
+  never: "Niekada"
+  minute1: "1 minutė"
+  minute5: "5 minutės"
+  minute10: "10 minučių"
+  minute30: "30 minučių"
+  hour1: "1 valanda"
+  hour6: "6 valandos"
+  hour12: "12 valandų"
+
+forecasts:
+  daily: "Dienos"
+  hourly: "Valandinė"
+
+weather:
+  clear-night: "Giedra, naktis"
+  cloudy: "Debesuota"
+  exceptional: "Išskirtinė"
+  fog: "Rūkas"
+  hail: "Kruša"
+  lightning: "Žaibai"
+  lightning-rainy: "Žaibai, lietus"
+  partlycloudy: "Iš dalies debesuota"
+  pouring: "Liūtis"
+  rainy: "Lietinga"
+  snowy: "Snieginga"
+  snowy-rainy: "Sniegas su lietumi"
+  sunny: "Saulėta"
+  windy: "Vėjuota"
+  windy-variant: "Vėjuota, debesuota"
+
+day_of_week:
+  monday: "Pirmadienis"
+  tuesday: "Antradienis"
+  wednesday: "Trečiadienis"
+  thursday: "Ketvirtadienis"
+  friday: "Penktadienis"
+  saturday: "Šeštadienis"
+  sunday: "Sekmadienis"
+
+day_of_week_short:
+  monday: "PIR"
+  tuesday: "ANT"
+  wednesday: "TRE"
+  thursday: "KET"
+  friday: "PEN"
+  saturday: "ŠEŠ"
+  sunday: "SEK"
+
+month:
+  january: "Sausis"
+  february: "Vasaris"
+  march: "Kovas"
+  april: "Balandis"
+  may: "Gegužė"
+  june: "Birželis"
+  july: "Liepa"
+  august: "Rugpjūtis"
+  september: "Rugsėjis"
+  october: "Spalis"
+  november: "Lapkritis"
+  december: "Gruodis"
+
+vacuum:
+  name: "Dulkių siurblys"
+  state:
+    cleaning: "Valo"
+    docked: "Doke"
+    error: "Klaida"
+    idle: "Laukia"
+    off: "Išjungtas"
+    on: "Įjungtas"
+    paused: "Pristabdytas"
+    returning: "Grįžta į doką"
+
+cover:
+  name: "Užuolaida"
+  state:
+    closed: Uždaryta
+    closing: Uždaroma
+    open: Atidaryta
+    opening: Atidaroma
+    stopped: Sustabdyta
+
+alarm_panel:
+  name: "Apsaugos sistema"
+  enter_pass: "Įveskite slaptažodį"
+  wrong_pass: "Neteisingas slaptažodis"
+  state:
+    armed: Įjungta
+    armed_away: Įjungta išvykstant
+    armed_custom_bypass: Tinkinama
+    armed_home: Įjungta namuose
+    armed_night: Įjungta naktį
+    armed_vacation: Įjungta atostogoms
+    arming: Įjungiama
+    disarmed: Išjungta
+    disarming: Išjungiama
+    pending: Laukiama
+    triggered: Suveikė
+
+fan:
+  name: Ventiliatorius
+  state:
+    "on": "Išjungtas"
+    "off": "Įjungtas"

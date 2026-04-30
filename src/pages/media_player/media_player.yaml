@@ -90,7 +90,7 @@ sensor:
     id: media_player_media_position_sensor
     entity_id: "${media_player_entity}"
     attribute: media_position
-    on_value: 
+    on_value:
       - if:
           condition:
             lambda: 'return !id(duration_slider_user_interaction);'
@@ -129,12 +129,12 @@ text_sensor:
           condition:
             lambda: 'return x == "paused";'
           then:
-            - lvgl.label.update: 
+            - lvgl.label.update:
                 id: media_player_state_label
                 x: 0
                 text: "${play_icon}"
           else:
-            - lvgl.label.update: 
+            - lvgl.label.update:
                 id: media_player_state_label
                 x: 0
                 text: "${pause_icon}"
@@ -196,7 +196,7 @@ text_sensor:
           std::vector<std::string> sl;
           std::string input = x;
           bool has_sources = false;
-          
+
           if (!input.empty() && input != "unknown" && input != "unavailable") {
             input.erase(std::remove(input.begin(), input.end(), '['), input.end());
             input.erase(std::remove(input.begin(), input.end(), ']'), input.end());
@@ -212,20 +212,20 @@ text_sensor:
             }
             has_sources = !sl.empty();
           }
-          
+
           id(source_list) = sl;
           id(source_available) = has_sources;
-          
+
           int sel = id(source_list_index);
           if (sel < 0 || sel >= (int)sl.size()) sel = 0;
           id(source_list_index) = sel;
-          
+
           ESP_LOGI("MP_PANEL","Parsed %d sources (sel=%d, available=%d)", (int)sl.size(), sel, has_sources);
-          
+
           // Обновляем состояние кнопки
           lv_obj_t* btn = id(media_player_source_btn);
           lv_obj_t* label = id(media_player_source_label);
-          
+
           if (has_sources) {
             lv_obj_clear_state(btn, LV_STATE_DISABLED);
             lv_obj_set_style_opa(btn, LV_OPA_COVER, 0);
@@ -448,7 +448,7 @@ lvgl:
                               clickable: false
                               radius: 68
                               pad_all: 0
-                              bg_opa: transp 
+                              bg_opa: transp
                               border_opa: transp
                               shadow_width: 6
                               shadow_color: 0xFFFFFF
@@ -515,7 +515,7 @@ lvgl:
                               clickable: false
                               radius: 68
                               pad_all: 0
-                              bg_opa: transp 
+                              bg_opa: transp
                               border_opa: transp
                               shadow_width: 6
                               shadow_color: 0xFFFFFF
@@ -619,7 +619,7 @@ lvgl:
                               text: "${repeat_all_icon}"
                               on_press:
                                 - script.execute: handle_repeat_press_script
-                    
+
                     # source
                     - obj:
                         id: media_player_source_btn
@@ -753,7 +753,7 @@ lvgl:
                                     action: media_player.volume_up
                                     data:
                                       entity_id: "${media_player_entity}"
-                    
+
 
         # CIRCLE
         - obj:
@@ -889,7 +889,7 @@ lvgl:
                   border_opa: transp
                   border_width: 0
                   shadow_opa: transp
-                  radius: 23 
+                  radius: 23
             on_click:
               - lvgl.page.show: home_page
 

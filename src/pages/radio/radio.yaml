@@ -7,7 +7,7 @@ text_sensor:
   - platform: homeassistant
     id: media_player_esphome
     entity_id: "${radio_mp_entity}"
-              
+
 lvgl:
   pages:
     - id: radio_page
@@ -61,7 +61,7 @@ lvgl:
                     - homeassistant.action:
                         action: media_player.media_stop
                         data:
-                          entity_id: "${radio_mp_entity}"     
+                          entity_id: "${radio_mp_entity}"
 
         - obj:
             id: circular_button_obj1
@@ -71,7 +71,7 @@ lvgl:
             y: 110
             clickable: false
             radius: 95
-            bg_opa: transp 
+            bg_opa: transp
             border_opa: transp
             shadow_width: 10
             shadow_color: 0xFFFFFF
@@ -87,7 +87,7 @@ lvgl:
             y: 110
             clickable: false
             radius: 95
-            bg_opa: transp 
+            bg_opa: transp
             border_opa: transp
             shadow_width: 20
             shadow_color: 0x000000
@@ -145,6 +145,6 @@ lvgl:
                   border_opa: transp
                   border_width: 0
                   shadow_opa: transp
-                  radius: 23 
+                  radius: 23
             on_click:
               - lvgl.page.show: home_page

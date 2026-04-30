@@ -158,7 +158,7 @@ api:
           lambda: 'return (0 == client_info.find("Home Assistant "));'
         then:
           - script.execute: update_loading_page
-          - lvgl.label.update: 
+          - lvgl.label.update:
               id: ha_status
               text_color: color_blue
           - script.execute: on_ha_connected
@@ -172,6 +172,6 @@ api:
           - globals.set:
               id: ha_connected
               value: 'false'
-          - lvgl.label.update: 
+          - lvgl.label.update:
               id: ha_status
               text_color: color_steel_blue

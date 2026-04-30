@@ -1,6 +1,6 @@
 substitutions:
   rooms_amount: "4"  # Количество комнат (1-4)
-  
+
   # Иконки комнат
   room_icon_1:                    "\U000F04B9"  # mdi:sofa (Living Room)
   room_icon_2:                    "\U000F04A6"  # mdi:silverware-variant (Kitchen)

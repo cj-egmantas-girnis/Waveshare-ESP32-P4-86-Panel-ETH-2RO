@@ -27,6 +27,7 @@ external_components:
 i18n:
   id: i18n_translations
   sources:
+    - translations/lt.yaml
     - translations/en.yaml
     - translations/es.yaml
     - translations/fr.yaml
@@ -36,7 +37,7 @@ i18n:
     - translations/si.yaml
     - translations/it.yaml
     - translations/de.yaml
-  default_locale: ru
+  default_locale: lt
 
 
 esphome:

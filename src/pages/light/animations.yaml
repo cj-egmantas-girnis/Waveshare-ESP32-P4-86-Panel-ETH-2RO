@@ -10,9 +10,9 @@ script:
 
       - delay: 100ms
       - lambda: |-
-          lv_anim_t anim_circle, anim_circle_expand, anim_btn_bg, anim_circle_btn_expand, 
+          lv_anim_t anim_circle, anim_circle_expand, anim_btn_bg, anim_circle_btn_expand,
             anim_select_rooms_fade, anim_select_lights_fade;
-          
+
           lv_anim_init(&anim_select_rooms_fade);
           lv_anim_set_var(&anim_select_rooms_fade, id(room_select_widget));
           lv_anim_set_values(&anim_select_rooms_fade, 0, -120);
@@ -32,7 +32,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_select_lights_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_select_lights_fade);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 0, 360);
@@ -52,7 +52,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn_bg, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn_bg);
-          
+
           lv_anim_init(&anim_circle_expand);
           lv_anim_set_var(&anim_circle_expand, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle_expand, 345, 570);
@@ -121,9 +121,9 @@ script:
 
       - delay: 600ms
       - lambda: |-
-          lv_anim_t anim_circle, anim_circle_shrink, anim_btn_bg, anim_circle_btn_shrink, 
+          lv_anim_t anim_circle, anim_circle_shrink, anim_btn_bg, anim_circle_btn_shrink,
             anim_select_rooms_fade, anim_select_lights_fade;
-          
+
           lv_anim_init(&anim_select_rooms_fade);
           lv_anim_set_var(&anim_select_rooms_fade, id(room_select_widget));
           lv_anim_set_values(&anim_select_rooms_fade, -120, 0);
@@ -143,7 +143,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_select_lights_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_select_lights_fade);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 360, 0);
@@ -163,7 +163,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn_bg, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn_bg);
-          
+
           lv_anim_init(&anim_circle_shrink);
           lv_anim_set_var(&anim_circle_shrink, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle_shrink, 570, 345);
@@ -189,7 +189,7 @@ script:
       - delay: 600ms
       - lambda: |-
           lv_obj_clear_flag(id(${widget_name}_light_arc_state), LV_OBJ_FLAG_HIDDEN);
-          
+
   # 2. ONOFF -> COLOR TEMP
   - id: ${widget_name}_animate_light_onoff_to_color_temp
     then:
@@ -200,9 +200,9 @@ script:
 
       - delay: 100ms
       - lambda: |-
-          lv_anim_t anim_circle, anim_circle_expand, anim_btn_bg, anim_circle_btn_expand, 
+          lv_anim_t anim_circle, anim_circle_expand, anim_btn_bg, anim_circle_btn_expand,
             anim_select_rooms_fade, anim_select_lights_fade;
-          
+
           lv_anim_init(&anim_select_rooms_fade);
           lv_anim_set_var(&anim_select_rooms_fade, id(room_select_widget));
           lv_anim_set_values(&anim_select_rooms_fade, 0, -120);
@@ -222,7 +222,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_select_lights_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_select_lights_fade);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 0, 360);
@@ -242,7 +242,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn_bg, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn_bg);
-          
+
           lv_anim_init(&anim_circle_expand);
           lv_anim_set_var(&anim_circle_expand, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle_expand, 345, 570);
@@ -312,7 +312,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_slider, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_slider);
-          
+
           lv_obj_clear_flag(id(${widget_name}_light_brightness_slider), LV_OBJ_FLAG_HIDDEN);
 
       - delay: 600ms
@@ -320,7 +320,7 @@ script:
           lv_obj_clear_flag(id(${widget_name}_state_icon_bg), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(${widget_name}_percentage_label), LV_OBJ_FLAG_HIDDEN);
 
-  # 3. COLOR TEMP -> ONOFF 
+  # 3. COLOR TEMP -> ONOFF
   - id: ${widget_name}_animate_light_color_temp_to_onoff
     then:
       - lambda: |-
@@ -373,14 +373,14 @@ script:
           });
           lv_anim_set_path_cb(&anim_slider, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_slider);
-          
+
           lv_obj_add_flag(id(${widget_name}_light_brightness_slider), LV_OBJ_FLAG_HIDDEN);
 
       - delay: 600ms
       - lambda: |-
-          lv_anim_t anim_circle, anim_circle_shrink, anim_btn_bg, anim_circle_btn_shrink, 
+          lv_anim_t anim_circle, anim_circle_shrink, anim_btn_bg, anim_circle_btn_shrink,
             anim_select_rooms_fade, anim_select_lights_fade;
-          
+
           lv_anim_init(&anim_select_rooms_fade);
           lv_anim_set_var(&anim_select_rooms_fade, id(room_select_widget));
           lv_anim_set_values(&anim_select_rooms_fade, -120, 0);
@@ -400,7 +400,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_select_lights_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_select_lights_fade);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 360, 0);
@@ -420,7 +420,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn_bg, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn_bg);
-          
+
           lv_anim_init(&anim_circle_shrink);
           lv_anim_set_var(&anim_circle_shrink, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle_shrink, 570, 345);
@@ -458,9 +458,9 @@ script:
 
       - delay: 100ms
       - lambda: |-
-          lv_anim_t anim_circle, anim_circle_expand, anim_btn_bg, anim_circle_btn_expand, 
+          lv_anim_t anim_circle, anim_circle_expand, anim_btn_bg, anim_circle_btn_expand,
             anim_select_rooms_fade, anim_select_lights_fade;
-          
+
           lv_anim_init(&anim_select_rooms_fade);
           lv_anim_set_var(&anim_select_rooms_fade, id(room_select_widget));
           lv_anim_set_values(&anim_select_rooms_fade, 0, -120);
@@ -480,7 +480,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_select_lights_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_select_lights_fade);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 0, 360);
@@ -500,7 +500,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn_bg, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn_bg);
-          
+
           lv_anim_init(&anim_circle_expand);
           lv_anim_set_var(&anim_circle_expand, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle_expand, 345, 570);
@@ -540,7 +540,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn);
-          
+
           lv_anim_init(&anim_icon);
           lv_anim_set_var(&anim_icon, id(${widget_name}_state_icon_bg));
           lv_anim_set_values(&anim_icon, -120, -240);
@@ -569,7 +569,7 @@ script:
           lv_obj_clear_flag(id(${widget_name}_state_icon_bg), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(${widget_name}_percentage_label), LV_OBJ_FLAG_HIDDEN);
 
-  # 5. RGB -> ONOFF 
+  # 5. RGB -> ONOFF
   - id: ${widget_name}_animate_light_rgb_to_onoff
     then:
       - lambda: |-
@@ -612,15 +612,15 @@ script:
           });
           lv_anim_set_path_cb(&anim_perc, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_perc);
-          
+
           lv_obj_add_flag(id(${widget_name}_light_brightness_slider), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_light_saturation_slider), LV_OBJ_FLAG_HIDDEN);
 
       - delay: 600ms
       - lambda: |-
-          lv_anim_t anim_circle, anim_circle_shrink, anim_btn_bg, anim_circle_btn_shrink, 
+          lv_anim_t anim_circle, anim_circle_shrink, anim_btn_bg, anim_circle_btn_shrink,
             anim_select_rooms_fade, anim_select_lights_fade;
-          
+
           lv_anim_init(&anim_select_rooms_fade);
           lv_anim_set_var(&anim_select_rooms_fade, id(room_select_widget));
           lv_anim_set_values(&anim_select_rooms_fade, -120, 0);
@@ -640,7 +640,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_select_lights_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_select_lights_fade);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 360, 0);
@@ -660,7 +660,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_btn_bg, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_btn_bg);
-          
+
           lv_anim_init(&anim_circle_shrink);
           lv_anim_set_var(&anim_circle_shrink, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle_shrink, 570, 345);
@@ -908,80 +908,80 @@ script:
       - lambda: |-
           ESP_LOGD("animation", "═══════════════════════════════════════");
           ESP_LOGD("animation", "Starting animation: %d → %d", from_mode, to_mode);
-          
+
           // ═══════════════════════════════════════════════════════════════════
           // МАТРИЦА ПЕРЕХОДОВ (12 анимаций)
           // ═══════════════════════════════════════════════════════════════════
-          
+
           // ───────────────────────────────────────────────────────────────────
           // ИЗ ONOFF (0) → 3 перехода
           // ───────────────────────────────────────────────────────────────────
           if (from_mode == 0 && to_mode == 1) {
             ESP_LOGD("animation", "▶ ONOFF → Brightness");
             id(${widget_name}_animate_light_onoff_to_brightness).execute();
-            
+
           } else if (from_mode == 0 && to_mode == 2) {
             ESP_LOGD("animation", "▶ ONOFF → Color Temp");
             id(${widget_name}_animate_light_onoff_to_color_temp).execute();
-            
+
           } else if (from_mode == 0 && to_mode == 3) {
             ESP_LOGD("animation", "▶ ONOFF → RGB");
             id(${widget_name}_animate_light_onoff_to_rgb).execute();
-          
+
           // ───────────────────────────────────────────────────────────────────
           // ИЗ BRIGHTNESS (1) → 3 перехода
           // ───────────────────────────────────────────────────────────────────
           } else if (from_mode == 1 && to_mode == 0) {
             ESP_LOGD("animation", "▶ Brightness → ONOFF");
             id(${widget_name}_animate_light_brightness_to_onoff).execute();
-            
+
           } else if (from_mode == 1 && to_mode == 2) {
             ESP_LOGD("animation", "▶ Brightness → Color Temp");
             id(${widget_name}_animate_light_brightness_to_color_temp).execute();
-            
+
           } else if (from_mode == 1 && to_mode == 3) {
             ESP_LOGD("animation", "▶ Brightness → RGB");
             id(${widget_name}_animate_light_brightness_to_rgb).execute();
-          
+
           // ───────────────────────────────────────────────────────────────────
           // ИЗ COLOR TEMP (2) → 3 перехода
           // ───────────────────────────────────────────────────────────────────
           } else if (from_mode == 2 && to_mode == 0) {
             ESP_LOGD("animation", "▶ Color Temp → ONOFF");
             id(${widget_name}_animate_light_color_temp_to_onoff).execute();
-            
+
           } else if (from_mode == 2 && to_mode == 1) {
             ESP_LOGD("animation", "▶ Color Temp → Brightness");
             id(${widget_name}_animate_light_color_temp_to_brightness).execute();
-            
+
           } else if (from_mode == 2 && to_mode == 3) {
             ESP_LOGD("animation", "▶ Color Temp → RGB (mode switch)");
             id(${widget_name}_animate_light_color_temp_to_rgb).execute();
-          
+
           // ───────────────────────────────────────────────────────────────────
           // ИЗ RGB (3) → 3 перехода
           // ───────────────────────────────────────────────────────────────────
           } else if (from_mode == 3 && to_mode == 0) {
             ESP_LOGD("animation", "▶ RGB → ONOFF");
             id(${widget_name}_animate_light_rgb_to_onoff).execute();
-            
+
           } else if (from_mode == 3 && to_mode == 1) {
             ESP_LOGD("animation", "▶ RGB → Brightness");
             id(${widget_name}_animate_light_rgb_to_brightness).execute();
-            
+
           } else if (from_mode == 3 && to_mode == 2) {
             ESP_LOGD("animation", "▶ RGB → Color Temp (mode switch)");
             id(${widget_name}_animate_light_rgb_to_color_temp).execute();
-          
+
           // ───────────────────────────────────────────────────────────────────
           // БЕЗ ИЗМЕНЕНИЙ (4 случая)
           // ───────────────────────────────────────────────────────────────────
           } else if (from_mode == to_mode) {
             ESP_LOGD("animation", "⏸ No change: mode %d → %d", from_mode, to_mode);
-            
+
           } else {
             ESP_LOGW("animation", "⚠ Unknown transition: %d → %d", from_mode, to_mode);
           }
-          
+
           ESP_LOGD("animation", "═══════════════════════════════════════");
 

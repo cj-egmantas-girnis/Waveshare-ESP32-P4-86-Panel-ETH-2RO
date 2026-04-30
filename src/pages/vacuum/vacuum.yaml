@@ -8,7 +8,7 @@ sensor:
   - platform: homeassistant
     id: vacuum_battery_level_sensor
     entity_id: "${battery_level_entity}"
-    on_value: 
+    on_value:
       - lvgl.label.update:
           id: vacuum_battery_level_label
           text: !lambda |-
@@ -27,7 +27,7 @@ sensor:
   - platform: homeassistant
     id: vacuum_cleaned_area_sensor
     entity_id: "${cleaned_area_entity}"
-    on_value: 
+    on_value:
       - lvgl.label.update:
           id: vacuum_cleaned_area_label
           text: !lambda |-
@@ -74,7 +74,7 @@ text_sensor:
               - lvgl.label.update:
                   id: vacuum_play_pause_icon
                   text: "${play_icon}"
-        
+
         # ═══════════════════════════════════════════════════════════════════
         # СОСТОЯНИЕ: RETURNING (возврат на базу) - покачивание
         # ═══════════════════════════════════════════════════════════════════
@@ -159,7 +159,7 @@ lvgl:
                   shadow_spread: 2
                   shadow_width: 9
                   widgets:
-                    - label: 
+                    - label:
                         id: vacuum_battery_level_label
                         align: center
                         text_font: nunito_28
@@ -181,14 +181,14 @@ lvgl:
                   shadow_spread: 3
                   shadow_width: 12
                   widgets:
-                    - label: 
+                    - label:
                         id: vacuum_cleaned_area_label
                         align: center
                         text_font: nunito_28
                         text_color: color_misty_blue
                         text: "0 m²"
 
-              - label: 
+              - label:
                   id: vacuum_state_label
                   y: -23
                   align: bottom_mid
@@ -256,7 +256,7 @@ lvgl:
                         clickable: false
                         radius: 68
                         pad_all: 0
-                        bg_opa: transp 
+                        bg_opa: transp
                         border_opa: transp
                         shadow_width: 6
                         shadow_color: 0xFFFFFF
@@ -326,7 +326,7 @@ lvgl:
                         clickable: false
                         radius: 68
                         pad_all: 0
-                        bg_opa: transp 
+                        bg_opa: transp
                         border_opa: transp
                         shadow_width: 6
                         shadow_color: 0xFFFFFF
@@ -396,7 +396,7 @@ lvgl:
                         clickable: false
                         radius: 68
                         pad_all: 0
-                        bg_opa: transp 
+                        bg_opa: transp
                         border_opa: transp
                         shadow_width: 6
                         shadow_color: 0xFFFFFF
@@ -466,7 +466,7 @@ lvgl:
                         clickable: false
                         radius: 68
                         pad_all: 0
-                        bg_opa: transp 
+                        bg_opa: transp
                         border_opa: transp
                         shadow_width: 6
                         shadow_color: 0xFFFFFF
@@ -621,7 +621,7 @@ lvgl:
                   border_opa: transp
                   border_width: 0
                   shadow_opa: transp
-                  radius: 23 
+                  radius: 23
             on_click:
               - lvgl.page.show: home_page
 

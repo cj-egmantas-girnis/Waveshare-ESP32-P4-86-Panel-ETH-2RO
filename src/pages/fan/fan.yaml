@@ -35,14 +35,14 @@ globals:
 sensor:
   - platform: homeassistant
     id: ${widget_name}_supported_features_sensor
-    entity_id: "${fan_entity}" 
+    entity_id: "${fan_entity}"
     attribute: supported_features
     on_value:
       - lambda: |-
           ESP_LOGD("fan", "Supported features: %.0f", x);
-          
+
           id(${widget_name}_supported_features) = x;
-          
+
           // SET_SPEED = 1
           bool has_set_speed = (int(x) & 1) != 0;
           // OSCILLATE = 2
@@ -51,9 +51,9 @@ sensor:
           bool has_direction = (int(x) & 4) != 0;
           // PRESET_MODE = 8
           bool has_preset_mode = (int(x) & 8) != 0;
-          
+
           ESP_LOGD("fan", "Has preset_mode: %d", has_preset_mode);
-          
+
           // Скрываем/показываем арку
           if (has_set_speed) {
             lv_obj_add_flag(id(${widget_name}_arc), LV_OBJ_FLAG_CLICKABLE);
@@ -62,13 +62,13 @@ sensor:
             lv_obj_clear_flag(id(${widget_name}_arc), LV_OBJ_FLAG_CLICKABLE);
             lv_obj_add_flag(id(${widget_name}_arc), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // Управление кнопками OSCILLATE и DIRECTION
           if (has_oscillate || has_direction) {
             // Показываем оба контейнера
             lv_obj_clear_flag(id(${widget_name}_oscillating_btn_bg), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_direction_btn_bg), LV_OBJ_FLAG_HIDDEN);
-            
+
             // OSCILLATE
             if (has_oscillate) {
               lv_obj_add_flag(id(${widget_name}_oscillating_btn), LV_OBJ_FLAG_CLICKABLE);
@@ -77,7 +77,7 @@ sensor:
               lv_obj_clear_flag(id(${widget_name}_oscillating_btn), LV_OBJ_FLAG_CLICKABLE);
               lv_obj_set_style_text_color(id(${widget_name}_oscillating_btn_icon), lv_color_hex(0x3D5A6C), 0);
             }
-            
+
             // DIRECTION
             if (has_direction) {
               lv_obj_add_flag(id(${widget_name}_direction_btn), LV_OBJ_FLAG_CLICKABLE);
@@ -91,7 +91,7 @@ sensor:
             lv_obj_add_flag(id(${widget_name}_oscillating_btn_bg), LV_OBJ_FLAG_HIDDEN);
             lv_obj_add_flag(id(${widget_name}_direction_btn_bg), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // PRESET_MODE кнопка
           if (has_preset_mode) {
             ESP_LOGD("fan", "Showing preset button");
@@ -103,12 +103,12 @@ sensor:
 
   - platform: homeassistant
     id: ${widget_name}_percentage_sensor
-    entity_id: "${fan_entity}" 
+    entity_id: "${fan_entity}"
     attribute: percentage
     on_value:
       - lambda: |-
           id(${widget_name}_current_percentage) = int(x);
-          
+
       - lvgl.arc.update:
           id: ${widget_name}_arc
           value: !lambda return int(x);
@@ -122,7 +122,7 @@ sensor:
             static char buf[8];
             snprintf(buf, sizeof(buf), "%.0f%%", x);
             return buf;
-      
+
       # Обновляем скорость ТОЛЬКО если вентилятор включен!
       - if:
           condition:
@@ -132,7 +132,7 @@ sensor:
 
   - platform: homeassistant
     id: ${widget_name}_percentage_step_sensor
-    entity_id: "${fan_entity}" 
+    entity_id: "${fan_entity}"
     attribute: percentage_step
     on_value:
       - lambda: |-
@@ -148,7 +148,7 @@ text_sensor:
 
       - lambda: |-
           ESP_LOGD("fan", "State changed to: %s", x.c_str());
-          
+
       - if:
           condition:
             lambda: 'return x == "on";'
@@ -162,7 +162,7 @@ text_sensor:
                 id: ${widget_name}_state_image_bg
                 bg_color: color_misty_blue
             - script.execute: ${widget_name}_stop_animation
- 
+
 
   - platform: homeassistant
     id: ${widget_name}_preset_modes_sensor
@@ -185,19 +185,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -210,19 +210,19 @@ text_sensor:
                 text_color: color_green
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -235,19 +235,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_blue        
+                text_color: color_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -260,19 +260,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue    
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_orange
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -285,19 +285,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue    
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_yellow        
+                text_color: color_yellow
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -310,19 +310,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue    
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_red
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -335,19 +335,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue    
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_dark_blue        
+                text_color: color_dark_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_misty_blue
@@ -360,19 +360,19 @@ text_sensor:
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_home_preset_label
-                text_color: color_misty_blue    
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_away_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_comfort_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_boost_preset_label
                 text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_sleep_preset_label
-                text_color: color_misty_blue        
+                text_color: color_misty_blue
             - lvgl.label.update:
                 id: ${widget_name}_smart_preset_label
                 text_color: color_crimson
@@ -394,7 +394,7 @@ text_sensor:
             - lvgl.label.update:
                 id: ${widget_name}_direction_btn_icon
                 text: "${rotate_left_icon}"
-      
+
       # Обновляем направление ТОЛЬКО если вентилятор включен!
       - if:
           condition:
@@ -406,11 +406,11 @@ text_sensor:
     id: ${widget_name}_name_sensor
     entity_id: "${fan_entity}"
     attribute: friendly_name
-    on_value: 
+    on_value:
       - lvgl.label.update:
           id: ${widget_name}_name_label
           text: !lambda return x;
-        
+
 
 binary_sensor:
 
@@ -500,9 +500,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${eco_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: eco
 
@@ -524,9 +524,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${away_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: away
 
@@ -548,9 +548,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${boost_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: boost
 
@@ -572,9 +572,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${comfort_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: comfort
 
@@ -596,9 +596,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${home_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: home
 
@@ -620,9 +620,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${sleep_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: sleep
 
@@ -644,9 +644,9 @@ lvgl:
                               text_color: color_misty_blue
                               text: "${smart_preset_icon}"
                         on_press:
-                          - homeassistant.action: 
+                          - homeassistant.action:
                               action: ${widget_name}.set_preset_mode
-                              data: 
+                              data:
                                 entity_id: "${widget_name}_entity"
                                 preset_mode: smart
 
@@ -714,7 +714,7 @@ lvgl:
                               text_color: color_misty_blue
                               text_font: nunito_28
                               text: "100%"
-  
+
 
         - obj:
             id: ${widget_name}_primary_buttons_background
@@ -801,7 +801,7 @@ lvgl:
                               clickable: false
                               radius: 68
                               pad_all: 0
-                              bg_opa: transp 
+                              bg_opa: transp
                               border_opa: transp
                               shadow_width: 6
                               shadow_color: 0xFFFFFF
@@ -880,7 +880,7 @@ lvgl:
                               clickable: false
                               radius: 68
                               pad_all: 0
-                              bg_opa: transp 
+                              bg_opa: transp
                               border_opa: transp
                               shadow_width: 6
                               shadow_color: 0xFFFFFF
@@ -904,7 +904,7 @@ lvgl:
                                     text_font: mdi_icons_42
                                     text_color: color_misty_blue
                                     text: "${swing_off_icon}"
-                                
+
 
         - obj:
             id: ${widget_name}_secondary_buttons_background
@@ -1013,25 +1013,25 @@ lvgl:
                           - lambda: |-
                               int raw_value = int(x);
                               int rounded_value = raw_value;
-                              
+
                               // Округление до ближайшего шага
                               float step = id(${widget_name}_percentage_step);
                               if (step > 1.0) {
                                 // Вычисляем количество шагов
                                 int num_steps = round(raw_value / step);
                                 rounded_value = round(num_steps * step);
-                                
+
                                 // Ограничиваем диапазон 0-100
                                 if (rounded_value < 0) rounded_value = 0;
                                 if (rounded_value > 100) rounded_value = 100;
-                                
+
                                 // Обновляем визуальное отображение арки
                                 lv_arc_set_value(id(${widget_name}_arc), rounded_value);
                               }
-                              
+
                               // Сохраняем значение для последующего использования
                               id(${widget_name}_current_percentage) = rounded_value;
-                          
+
                           - homeassistant.action:
                               action: fan.set_percentage
                               data:
@@ -1093,7 +1093,7 @@ lvgl:
                   border_opa: transp
                   border_width: 0
                   shadow_opa: transp
-                  radius: 23 
+                  radius: 23
             on_click:
               - lvgl.widget.hide: fan_select_widget
               - lvgl.page.show: home_page
@@ -1117,54 +1117,54 @@ script:
       - lambda: |-
           std::string presets_str = id(${widget_name}_preset_modes_sensor).state;
           ESP_LOGD("HVAC", "Available presets: %s", presets_str.c_str());
-          
+
           // ECO
           if (presets_str.find("eco") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_eco_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_eco_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // AWAY
           if (presets_str.find("away") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_away_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_away_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // BOOST
           if (presets_str.find("boost") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_boost_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_boost_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // COMFORT
           if (presets_str.find("comfort") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_comfort_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_comfort_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // HOME
           if (presets_str.find("home") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_home_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_home_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // SLEEP
           if (presets_str.find("sleep") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_sleep_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_sleep_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           // ACTIVITY
           if (presets_str.find("smart") != std::string::npos) {
             lv_obj_clear_flag(id(${widget_name}_smart_preset_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${widget_name}_smart_preset_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           ESP_LOGD("HVAC", "Preset buttons visibility updated");

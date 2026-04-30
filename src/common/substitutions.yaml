@@ -14,14 +14,14 @@ humidity_entity:          "sensor.outside_humidity"
 
 # SETTINGS
 
-secondary_language:        "ru"
-timezone:                  "Europe/Moscow"
+secondary_language:        "en"
+timezone:                  "Europe/Vilnius"
 
 # ICONS
 
 lock_icon:                  "\U0000e92e"
 lock_variant_icon:          "\U000F0341"
-air_conditioner_icon:       "\U0000e93b" 
+air_conditioner_icon:       "\U0000e93b"
 heating_icon:               "\U0000e936"
 ha_icon:                    "\U000F07D0" # home assistant
 wifi_25_icon:               "\U0000e931" # wifi signal from 25% to 1%
@@ -29,11 +29,11 @@ wifi_50_icon:               "\U0000e932" # wifi signal from 50% to 25%
 wifi_75_icon:               "\U0000e933" # wifi signal from 75% to 50%
 wifi_100_icon:              "\U0000e934" # wifi signal from 100% to 75% or disable
 
-humidity_icon:              "\U0000e938" 
-temperature_icon:           "\U0000e939" 
+humidity_icon:              "\U0000e938"
+temperature_icon:           "\U0000e939"
 lightbulb_icon:             "\U000F0335"
 ceiling_lights_icon:        "\U000F18DD"
-brightness_icon:            "\U000F1A4D" 
+brightness_icon:            "\U000F1A4D"
 info_icon:                  "\U000F1C70"
 settings_icon:              "\U000F08BB"
 dashboard_icon:             "\U000F056E" # devices
@@ -69,7 +69,7 @@ minus_icon:                 "\U000F0374"
 none_preset_icon:           "\U000F043D"
 eco_preset_icon:            "\U000F032A"
 away_preset_icon:           "\U000F0F9B"
-boost_preset_icon:          "\U000F14DE"     
+boost_preset_icon:          "\U000F14DE"
 comfort_preset_icon:        "\U000F04B9"
 home_preset_icon:           "\U000F02DC"
 sleep_preset_icon:          "\U000F0904"

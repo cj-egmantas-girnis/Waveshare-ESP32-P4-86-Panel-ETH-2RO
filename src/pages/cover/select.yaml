@@ -186,7 +186,7 @@ script:
     then:
       - lambda: |-
           int covers = ${covers_amount};
-          
+
           if (covers >= 2) {
             lv_obj_clear_flag(id(${cover_widget_name_1}_btn), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${cover_widget_name_2}_btn), LV_OBJ_FLAG_HIDDEN);
@@ -194,13 +194,13 @@ script:
             lv_obj_add_flag(id(${cover_widget_name_1}_btn), LV_OBJ_FLAG_HIDDEN);
             lv_obj_add_flag(id(${cover_widget_name_2}_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           if (covers >= 3) {
             lv_obj_clear_flag(id(${cover_widget_name_3}_btn), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(${cover_widget_name_3}_btn), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           if (covers >= 4) {
             lv_obj_clear_flag(id(${cover_widget_name_4}_btn), LV_OBJ_FLAG_HIDDEN);
           } else {

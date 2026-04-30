@@ -48,7 +48,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_lights_btn, anim_devices_btn, anim_circle, anim_datetime_fade;
-          
+
           lv_anim_init(&anim_lights_btn);
           lv_anim_set_var(&anim_lights_btn, id(home_lights_btn_bg));
           lv_anim_set_values(&anim_lights_btn, 45, -225);  // 30->45, -150->-225
@@ -58,7 +58,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_lights_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_lights_btn);
-          
+
           lv_anim_init(&anim_devices_btn);
           lv_anim_set_var(&anim_devices_btn, id(home_devices_btn_bg));
           lv_anim_set_values(&anim_devices_btn, -45, 225);  // -30->-45, 150->225
@@ -68,7 +68,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_devices_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_devices_btn);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(circle_widget_background));
           lv_anim_set_values(&anim_circle, 150, 600);  // 100->150, 400->600
@@ -78,7 +78,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
           lv_anim_init(&anim_datetime_fade);
           lv_anim_set_var(&anim_datetime_fade, id(datetime_widget));
           lv_anim_set_values(&anim_datetime_fade, 255, 0);
@@ -92,7 +92,7 @@ script:
       - delay: 600ms
       - lambda: |-
           lv_anim_t anim_main_shrink, anim_middle_expand, anim_middle_move_up;
-          
+
           lv_anim_init(&anim_main_shrink);
           lv_anim_set_var(&anim_main_shrink, id(main_widget_background));
           lv_anim_set_values(&anim_main_shrink, 330, 180);  // 220->330, 120->180
@@ -102,7 +102,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_shrink);
-          
+
           lv_anim_init(&anim_middle_expand);
           lv_anim_set_var(&anim_middle_expand, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_expand, 150, 300);  // 100->150, 200->300
@@ -112,7 +112,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_expand);
-          
+
           lv_anim_init(&anim_middle_move_up);
           lv_anim_set_var(&anim_middle_move_up, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_move_up, lv_obj_get_y(id(middle_widget_background)), lv_obj_get_y(id(middle_widget_background)) - 150);  // -100->-150
@@ -127,12 +127,12 @@ script:
       - lambda: |-
           lv_obj_clear_flag(id(middle_weather_controls), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(weather_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(middle_weather_controls), 0, 0);
           lv_obj_set_style_opa(id(weather_widget), 0, 0);
-          
+
           lv_anim_t anim_weather_controls_fade, anim_weather_widget_fade;
-          
+
           lv_anim_init(&anim_weather_controls_fade);
           lv_anim_set_var(&anim_weather_controls_fade, id(middle_weather_controls));
           lv_anim_set_values(&anim_weather_controls_fade, 0, 255);
@@ -142,7 +142,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_controls_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_controls_fade);
-          
+
           lv_anim_init(&anim_weather_widget_fade);
           lv_anim_set_var(&anim_weather_widget_fade, id(weather_widget));
           lv_anim_set_values(&anim_weather_widget_fade, 0, 255);
@@ -163,7 +163,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_weather_controls_fade, anim_weather_widget_fade;
-          
+
           lv_anim_init(&anim_weather_controls_fade);
           lv_anim_set_var(&anim_weather_controls_fade, id(middle_weather_controls));
           lv_anim_set_values(&anim_weather_controls_fade, 255, 0);
@@ -176,7 +176,7 @@ script:
             lv_obj_add_flag(id(middle_weather_controls), LV_OBJ_FLAG_HIDDEN);
           });
           lv_anim_start(&anim_weather_controls_fade);
-          
+
           lv_anim_init(&anim_weather_widget_fade);
           lv_anim_set_var(&anim_weather_widget_fade, id(weather_widget));
           lv_anim_set_values(&anim_weather_widget_fade, 255, 0);
@@ -193,7 +193,7 @@ script:
       - delay: 400ms
       - lambda: |-
           lv_anim_t anim_main_expand, anim_middle_shrink, anim_middle_move_down;
-          
+
           lv_anim_init(&anim_main_expand);
           lv_anim_set_var(&anim_main_expand, id(main_widget_background));
           lv_anim_set_values(&anim_main_expand, 180, 330);  // 120->180, 220->330
@@ -203,7 +203,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_expand);
-          
+
           lv_anim_init(&anim_middle_shrink);
           lv_anim_set_var(&anim_middle_shrink, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_shrink, 300, 150);  // 200->300, 100->150
@@ -213,7 +213,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_shrink);
-          
+
           lv_anim_init(&anim_middle_move_down);
           lv_anim_set_var(&anim_middle_move_down, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_move_down, lv_obj_get_y(id(middle_widget_background)), lv_obj_get_y(id(middle_widget_background)) + 150);  // +100->+150
@@ -229,7 +229,7 @@ script:
       - delay: 350ms
       - lambda: |-
           lv_anim_t anim_lights_btn, anim_devices_btn, anim_circle, anim_datetime_fade;
-          
+
           lv_anim_init(&anim_lights_btn);
           lv_anim_set_var(&anim_lights_btn, id(home_lights_btn_bg));
           lv_anim_set_values(&anim_lights_btn, -225, 45);  // -150->-225, 30->45
@@ -239,7 +239,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_lights_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_lights_btn);
-          
+
           lv_anim_init(&anim_devices_btn);
           lv_anim_set_var(&anim_devices_btn, id(home_devices_btn_bg));
           lv_anim_set_values(&anim_devices_btn, 225, -45);  // 150->225, -30->-45
@@ -249,7 +249,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_devices_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_devices_btn);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(circle_widget_background));
           lv_anim_set_values(&anim_circle, 600, 150);  // 400->600, 100->150
@@ -259,7 +259,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
           lv_anim_init(&anim_datetime_fade);
           lv_anim_set_var(&anim_datetime_fade, id(datetime_widget));
           lv_anim_set_values(&anim_datetime_fade, 0, 255);
@@ -289,7 +289,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_images, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_images);
-          
+
           lv_anim_t anim_weather_time_fade;
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
@@ -300,7 +300,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_t anim_datetime_fade;
           lv_anim_init(&anim_datetime_fade);
           lv_anim_set_var(&anim_datetime_fade, id(datetime_widget));
@@ -311,7 +311,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_datetime_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_datetime_fade);
-          
+
           lv_anim_t anim_circle_main_fade;
           lv_anim_init(&anim_circle_main_fade);
           lv_anim_set_var(&anim_circle_main_fade, id(circle_home_widget));
@@ -355,7 +355,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_images, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_images);
-          
+
           lv_anim_t anim_weather_time_fade;
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
@@ -366,7 +366,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_t anim_datetime_fade;
           lv_anim_init(&anim_datetime_fade);
           lv_anim_set_var(&anim_datetime_fade, id(datetime_widget));
@@ -377,7 +377,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_datetime_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_datetime_fade);
-          
+
           lv_anim_t anim_circle_main_fade;
           lv_anim_init(&anim_circle_main_fade);
           lv_anim_set_var(&anim_circle_main_fade, id(circle_home_widget));
@@ -408,7 +408,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_images, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_images);
-          
+
           lv_anim_t anim_weather_time_fade;
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
@@ -419,7 +419,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_t anim_datetime_fade;
           lv_anim_init(&anim_datetime_fade);
           lv_anim_set_var(&anim_datetime_fade, id(datetime_widget));
@@ -430,7 +430,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_datetime_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_datetime_fade);
-          
+
           lv_anim_t anim_circle_main_fade;
           lv_anim_init(&anim_circle_main_fade);
           lv_anim_set_var(&anim_circle_main_fade, id(circle_home_widget));
@@ -446,19 +446,19 @@ script:
       - lambda: |-
           lv_obj_clear_flag(id(settings_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(circle_settings_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(settings_widget), 255, 0);
           lv_obj_set_style_opa(id(circle_settings_widget), 255, 0);
           lv_obj_set_width(id(backlight_settings_brightness_background), 330);  // 220->330
           lv_obj_set_width(id(backlight_settings_sleep_time_background), 330);  // 220->330
-          
+
       - delay: 100ms
       - lambda: |-
           lv_obj_set_style_bg_color(id(settings_widget), lv_color_hex(0x0d0d0d), 0);
           lv_obj_set_style_bg_opa(id(settings_widget), LV_OPA_COVER, 0);
-          
+
           lv_anim_t anim_brightness_resize, anim_sleep_resize;
-          
+
           lv_anim_init(&anim_brightness_resize);
           lv_anim_set_var(&anim_brightness_resize, id(backlight_settings_brightness_background));
           lv_anim_set_values(&anim_brightness_resize, 330, 323);  // 220->330, 215->323 (округлено)
@@ -468,7 +468,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_brightness_resize, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_brightness_resize);
-          
+
           lv_anim_init(&anim_sleep_resize);
           lv_anim_set_var(&anim_sleep_resize, id(backlight_settings_sleep_time_background));
           lv_anim_set_values(&anim_sleep_resize, 330, 323);  // 220->330, 215->323
@@ -489,7 +489,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_brightness_resize, anim_sleep_resize;
-          
+
           lv_anim_init(&anim_brightness_resize);
           lv_anim_set_var(&anim_brightness_resize, id(backlight_settings_brightness_background));
           lv_anim_set_values(&anim_brightness_resize, 323, 330);  // 215->323, 220->330
@@ -499,7 +499,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_brightness_resize, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_brightness_resize);
-          
+
           lv_anim_init(&anim_sleep_resize);
           lv_anim_set_var(&anim_sleep_resize, id(backlight_settings_sleep_time_background));
           lv_anim_set_values(&anim_sleep_resize, 323, 330);  // 215->323, 220->330
@@ -517,7 +517,7 @@ script:
       - delay: 100ms
       - lambda: |-
           lv_anim_t anim_settings_fade, anim_circle_settings_fade;
-          
+
           lv_anim_init(&anim_settings_fade);
           lv_anim_set_var(&anim_settings_fade, id(settings_widget));
           lv_anim_set_values(&anim_settings_fade, 255, 0);
@@ -527,7 +527,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_settings_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_settings_fade);
-          
+
           lv_anim_init(&anim_circle_settings_fade);
           lv_anim_set_var(&anim_circle_settings_fade, id(circle_settings_widget));
           lv_anim_set_values(&anim_circle_settings_fade, 255, 0);
@@ -544,7 +544,7 @@ script:
           lv_obj_add_flag(id(circle_settings_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(weather_time_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(circle_home_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(circle_home_widget), 0, 0);
           lv_obj_set_style_opa(id(datetime_widget), 0, 0);
           lv_obj_set_style_opa(id(weather_time_widget), 0, 0);
@@ -562,7 +562,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle_main_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle_main_fade);
-          
+
           lv_anim_t anim_datetime_fade;
           lv_anim_init(&anim_datetime_fade);
           lv_anim_set_var(&anim_datetime_fade, id(datetime_widget));
@@ -573,7 +573,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_datetime_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_datetime_fade);
-          
+
           lv_anim_t anim_weather_time_fade;
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
@@ -584,7 +584,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_t anim_weather_images;
           lv_anim_init(&anim_weather_images);
           lv_anim_set_var(&anim_weather_images, id(weather_state_images));
@@ -606,7 +606,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_weather_time_fade, anim_weather_fade;
-          
+
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
           lv_anim_set_values(&anim_weather_time_fade, 255, 0);
@@ -616,7 +616,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_init(&anim_weather_fade);
           lv_anim_set_var(&anim_weather_fade, id(weather_widget));
           lv_anim_set_values(&anim_weather_fade, 255, 0);
@@ -637,9 +637,9 @@ script:
           lv_obj_set_style_opa(id(info_widget), 0, 0);
           lv_obj_clear_flag(id(circle_info_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(info_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_anim_t anim_main_expand, anim_middle_shrink, anim_middle_move_down;
-          
+
           lv_anim_init(&anim_main_expand);
           lv_anim_set_var(&anim_main_expand, id(main_widget_background));
           lv_anim_set_values(&anim_main_expand, 180, 330);  // 120->180, 220->330
@@ -649,7 +649,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_expand);
-          
+
           lv_anim_init(&anim_middle_shrink);
           lv_anim_set_var(&anim_middle_shrink, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_shrink, 300, 150);  // 200->300, 100->150
@@ -659,7 +659,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_shrink);
-          
+
           lv_anim_init(&anim_middle_move_down);
           lv_anim_set_var(&anim_middle_move_down, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_move_down, lv_obj_get_y(id(middle_widget_background)), lv_obj_get_y(id(middle_widget_background)) + 150);  // +100->+150
@@ -669,7 +669,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_move_down, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_move_down);
-          
+
           lv_anim_t anim_weather_images;
           lv_anim_init(&anim_weather_images);
           lv_anim_set_var(&anim_weather_images, id(weather_state_images));
@@ -684,7 +684,7 @@ script:
       - delay: 350ms
       - lambda: |-
           lv_anim_t anim_lights_btn, anim_devices_btn;
-          
+
           lv_anim_init(&anim_lights_btn);
           lv_anim_set_var(&anim_lights_btn, id(home_lights_btn_bg));
           lv_anim_set_values(&anim_lights_btn, -225, 45);  // -150->-225, 30->45
@@ -694,7 +694,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_lights_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_lights_btn);
-          
+
           lv_anim_init(&anim_devices_btn);
           lv_anim_set_var(&anim_devices_btn, id(home_devices_btn_bg));
           lv_anim_set_values(&anim_devices_btn, 225, -45);  // 150->225, -30->-45
@@ -704,7 +704,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_devices_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_devices_btn);
-          
+
           lv_anim_t anim_circle;
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(circle_widget_background));
@@ -728,7 +728,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle_info_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle_info_fade);
-          
+
           lv_anim_t anim_info_fade;
           lv_anim_init(&anim_info_fade);
           lv_anim_set_var(&anim_info_fade, id(info_widget));
@@ -754,7 +754,7 @@ script:
       - delay: 350ms
       - lambda: |-
           lv_anim_t anim_lights_btn, anim_devices_btn;
-          
+
           lv_anim_init(&anim_lights_btn);
           lv_anim_set_var(&anim_lights_btn, id(home_lights_btn_bg));
           lv_anim_set_values(&anim_lights_btn, 45, -225);  // 30->45, -150->-225
@@ -764,7 +764,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_lights_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_lights_btn);
-          
+
           lv_anim_init(&anim_devices_btn);
           lv_anim_set_var(&anim_devices_btn, id(home_devices_btn_bg));
           lv_anim_set_values(&anim_devices_btn, -45, 225);  // -30->-45, 150->225
@@ -774,7 +774,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_devices_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_devices_btn);
-          
+
           lv_anim_t anim_circle;
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(circle_widget_background));
@@ -785,7 +785,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
           lv_anim_t anim_weather_images;
           lv_anim_init(&anim_weather_images);
           lv_anim_set_var(&anim_weather_images, id(weather_state_images));
@@ -796,9 +796,9 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_images, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_images);
-          
+
           lv_anim_t anim_main_shrink, anim_middle_expand, anim_middle_move_up;
-          
+
           lv_anim_init(&anim_main_shrink);
           lv_anim_set_var(&anim_main_shrink, id(main_widget_background));
           lv_anim_set_values(&anim_main_shrink, 330, 180);  // 220->330, 120->180
@@ -808,7 +808,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_shrink);
-          
+
           lv_anim_init(&anim_middle_expand);
           lv_anim_set_var(&anim_middle_expand, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_expand, 150, 300);  // 100->150, 200->300
@@ -818,7 +818,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_expand);
-          
+
           lv_anim_init(&anim_middle_move_up);
           lv_anim_set_var(&anim_middle_move_up, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_move_up, lv_obj_get_y(id(middle_widget_background)), lv_obj_get_y(id(middle_widget_background)) - 150);  // -100->-150
@@ -846,7 +846,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_init(&anim_weather_fade);
           lv_anim_set_var(&anim_weather_fade, id(weather_widget));
           lv_anim_set_values(&anim_weather_fade, 0, 255);
@@ -870,7 +870,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_weather_time_fade, anim_weather_fade, anim_middle_weather_fade;
-          
+
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
           lv_anim_set_values(&anim_weather_time_fade, 255, 0);
@@ -883,7 +883,7 @@ script:
             lv_obj_add_flag(id(weather_time_widget), LV_OBJ_FLAG_HIDDEN);
           });
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_anim_init(&anim_weather_fade);
           lv_anim_set_var(&anim_weather_fade, id(weather_widget));
           lv_anim_set_values(&anim_weather_fade, 255, 0);
@@ -896,7 +896,7 @@ script:
             lv_obj_add_flag(id(weather_widget), LV_OBJ_FLAG_HIDDEN);
           });
           lv_anim_start(&anim_weather_fade);
-          
+
           lv_anim_init(&anim_middle_weather_fade);
           lv_anim_set_var(&anim_middle_weather_fade, id(middle_weather_controls));
           lv_anim_set_values(&anim_middle_weather_fade, 255, 0);
@@ -913,7 +913,7 @@ script:
       - delay: 400ms
       - lambda: |-
           lv_anim_t anim_main_expand, anim_middle_shrink, anim_middle_move_down;
-          
+
           lv_anim_init(&anim_main_expand);
           lv_anim_set_var(&anim_main_expand, id(main_widget_background));
           lv_anim_set_values(&anim_main_expand, 180, 330);  // 120->180, 220->330
@@ -923,7 +923,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_expand);
-          
+
           lv_anim_init(&anim_middle_shrink);
           lv_anim_set_var(&anim_middle_shrink, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_shrink, 300, 150);  // 200->300, 100->150
@@ -933,7 +933,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_shrink);
-          
+
           lv_anim_init(&anim_middle_move_down);
           lv_anim_set_var(&anim_middle_move_down, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_move_down, lv_obj_get_y(id(middle_widget_background)), lv_obj_get_y(id(middle_widget_background)) + 150);  // +100->+150
@@ -943,14 +943,14 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_move_down, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_move_down);
-          
+
           lv_obj_clear_flag(id(circle_settings_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_set_style_opa(id(circle_settings_widget), 255, 0);
 
       - delay: 350ms
       - lambda: |-
           lv_anim_t anim_lights_btn, anim_devices_btn, anim_circle, anim_weather_images;
-          
+
           lv_anim_init(&anim_lights_btn);
           lv_anim_set_var(&anim_lights_btn, id(home_lights_btn_bg));
           lv_anim_set_values(&anim_lights_btn, -225, 45);  // -150->-225, 30->45
@@ -960,7 +960,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_lights_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_lights_btn);
-          
+
           lv_anim_init(&anim_devices_btn);
           lv_anim_set_var(&anim_devices_btn, id(home_devices_btn_bg));
           lv_anim_set_values(&anim_devices_btn, 225, -45);  // 150->225, -30->-45
@@ -970,7 +970,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_devices_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_devices_btn);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(circle_widget_background));
           lv_anim_set_values(&anim_circle, 600, 150);  // 400->600, 100->150
@@ -980,7 +980,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
           lv_anim_init(&anim_weather_images);
           lv_anim_set_var(&anim_weather_images, id(weather_state_images));
           lv_anim_set_values(&anim_weather_images, 23, -600);  // 15->23, -400->-600
@@ -990,26 +990,26 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_images, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_images);
-          
+
           lv_obj_add_flag(id(circle_home_widget), LV_OBJ_FLAG_HIDDEN);
 
       - delay: 650ms
       - lambda: |-
           lv_obj_clear_flag(id(settings_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(circle_settings_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(settings_widget), 255, 0);
           lv_obj_set_style_opa(id(circle_settings_widget), 255, 0);
           lv_obj_set_width(id(backlight_settings_brightness_background), 330);  // 220->330
           lv_obj_set_width(id(backlight_settings_sleep_time_background), 330);  // 220->330
-          
+
       - delay: 100ms
       - lambda: |-
           lv_obj_set_style_bg_color(id(settings_widget), lv_color_hex(0x0d0d0d), 0);
           lv_obj_set_style_bg_opa(id(settings_widget), LV_OPA_COVER, 0);
-          
+
           lv_anim_t anim_brightness_resize, anim_sleep_resize;
-          
+
           lv_anim_init(&anim_brightness_resize);
           lv_anim_set_var(&anim_brightness_resize, id(backlight_settings_brightness_background));
           lv_anim_set_values(&anim_brightness_resize, 330, 323);  // 220->330, 215->323
@@ -1019,7 +1019,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_brightness_resize, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_brightness_resize);
-          
+
           lv_anim_init(&anim_sleep_resize);
           lv_anim_set_var(&anim_sleep_resize, id(backlight_settings_sleep_time_background));
           lv_anim_set_values(&anim_sleep_resize, 330, 323);  // 220->330, 215->323
@@ -1040,7 +1040,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_brightness_resize, anim_sleep_resize;
-          
+
           lv_anim_init(&anim_brightness_resize);
           lv_anim_set_var(&anim_brightness_resize, id(backlight_settings_brightness_background));
           lv_anim_set_values(&anim_brightness_resize, 323, 330);  // 215->323, 220->330
@@ -1050,7 +1050,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_brightness_resize, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_brightness_resize);
-          
+
           lv_anim_init(&anim_sleep_resize);
           lv_anim_set_var(&anim_sleep_resize, id(backlight_settings_sleep_time_background));
           lv_anim_set_values(&anim_sleep_resize, 323, 330);  // 215->323, 220->330
@@ -1068,7 +1068,7 @@ script:
       - delay: 100ms
       - lambda: |-
           lv_anim_t anim_settings_fade, anim_lights_btn, anim_devices_btn, anim_circle, anim_weather_images;
-          
+
           lv_anim_init(&anim_settings_fade);
           lv_anim_set_var(&anim_settings_fade, id(settings_widget));
           lv_anim_set_values(&anim_settings_fade, 255, 0);
@@ -1088,7 +1088,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_lights_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_lights_btn);
-          
+
           lv_anim_init(&anim_devices_btn);
           lv_anim_set_var(&anim_devices_btn, id(home_devices_btn_bg));
           lv_anim_set_values(&anim_devices_btn, -45, 225);  // -30->-45, 150->225
@@ -1098,7 +1098,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_devices_btn, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_devices_btn);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(circle_widget_background));
           lv_anim_set_values(&anim_circle, 150, 600);  // 100->150, 400->600
@@ -1108,7 +1108,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
           lv_anim_init(&anim_weather_images);
           lv_anim_set_var(&anim_weather_images, id(weather_state_images));
           lv_anim_set_values(&anim_weather_images, -600, 23);  // -400->-600, 15->23
@@ -1122,7 +1122,7 @@ script:
       - delay: 600ms
       - lambda: |-
           lv_anim_t anim_main_shrink, anim_middle_expand, anim_middle_move_up;
-          
+
           lv_anim_init(&anim_main_shrink);
           lv_anim_set_var(&anim_main_shrink, id(main_widget_background));
           lv_anim_set_values(&anim_main_shrink, 330, 180);  // 220->330, 120->180
@@ -1132,7 +1132,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_shrink);
-          
+
           lv_anim_init(&anim_middle_expand);
           lv_anim_set_var(&anim_middle_expand, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_expand, 150, 300);  // 100->150, 200->300
@@ -1142,7 +1142,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_middle_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_middle_expand);
-          
+
           lv_anim_init(&anim_middle_move_up);
           lv_anim_set_var(&anim_middle_move_up, id(middle_widget_background));
           lv_anim_set_values(&anim_middle_move_up, lv_obj_get_y(id(middle_widget_background)), lv_obj_get_y(id(middle_widget_background)) - 150);  // -100->-150
@@ -1156,7 +1156,7 @@ script:
       - delay: 350ms
       - lambda: |-
           lv_anim_t anim_weather_time_fade, anim_weather_fade, anim_middle_weather_fade;
-          
+
           lv_obj_clear_flag(id(weather_time_widget), LV_OBJ_FLAG_HIDDEN);
           lv_anim_init(&anim_weather_time_fade);
           lv_anim_set_var(&anim_weather_time_fade, id(weather_time_widget));
@@ -1167,7 +1167,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_time_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_time_fade);
-          
+
           lv_obj_clear_flag(id(weather_widget), LV_OBJ_FLAG_HIDDEN);
           lv_anim_init(&anim_weather_fade);
           lv_anim_set_var(&anim_weather_fade, id(weather_widget));
@@ -1178,7 +1178,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_weather_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_weather_fade);
-          
+
           lv_obj_clear_flag(id(middle_weather_controls), LV_OBJ_FLAG_HIDDEN);
           lv_anim_init(&anim_middle_weather_fade);
           lv_anim_set_var(&anim_middle_weather_fade, id(middle_weather_controls));
@@ -1194,7 +1194,7 @@ script:
       - lambda: |-
           lv_obj_add_flag(id(settings_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(circle_settings_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_clear_flag(id(circle_home_widget), LV_OBJ_FLAG_HIDDEN);
 
       - delay: 150ms
@@ -1217,7 +1217,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_info_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_info_fade);
-          
+
           lv_anim_init(&anim_circle_info_fade);
           lv_anim_set_var(&anim_circle_info_fade, id(circle_info_widget));
           lv_anim_set_values(&anim_circle_info_fade, 255, 0);
@@ -1232,19 +1232,19 @@ script:
       - lambda: |-
           lv_obj_clear_flag(id(settings_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(circle_settings_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(settings_widget), 255, 0);
           lv_obj_set_style_opa(id(circle_settings_widget), 255, 0);
           lv_obj_set_width(id(backlight_settings_brightness_background), 330);  // 220->330
           lv_obj_set_width(id(backlight_settings_sleep_time_background), 330);  // 220->330
-          
+
       - delay: 100ms
       - lambda: |-
           lv_obj_set_style_bg_color(id(settings_widget), lv_color_hex(0x0d0d0d), 0);
           lv_obj_set_style_bg_opa(id(settings_widget), LV_OPA_COVER, 0);
-          
+
           lv_anim_t anim_brightness_resize, anim_sleep_resize;
-          
+
           lv_anim_init(&anim_brightness_resize);
           lv_anim_set_var(&anim_brightness_resize, id(backlight_settings_brightness_background));
           lv_anim_set_values(&anim_brightness_resize, 330, 323);  // 220->330, 215->323
@@ -1254,7 +1254,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_brightness_resize, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_brightness_resize);
-          
+
           lv_anim_init(&anim_sleep_resize);
           lv_anim_set_var(&anim_sleep_resize, id(backlight_settings_sleep_time_background));
           lv_anim_set_values(&anim_sleep_resize, 330, 323);  // 220->330, 215->323
@@ -1275,7 +1275,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_brightness_resize, anim_sleep_resize;
-          
+
           lv_anim_init(&anim_brightness_resize);
           lv_anim_set_var(&anim_brightness_resize, id(backlight_settings_brightness_background));
           lv_anim_set_values(&anim_brightness_resize, 323, 330);  // 215->323, 220->330
@@ -1285,7 +1285,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_brightness_resize, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_brightness_resize);
-          
+
           lv_anim_init(&anim_sleep_resize);
           lv_anim_set_var(&anim_sleep_resize, id(backlight_settings_sleep_time_background));
           lv_anim_set_values(&anim_sleep_resize, 323, 330);  // 215->323, 220->330
@@ -1303,7 +1303,7 @@ script:
       - delay: 100ms
       - lambda: |-
           lv_anim_t anim_settings_fade, anim_circle_settings_fade;
-          
+
           lv_anim_init(&anim_settings_fade);
           lv_anim_set_var(&anim_settings_fade, id(settings_widget));
           lv_anim_set_values(&anim_settings_fade, 255, 0);
@@ -1313,7 +1313,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_settings_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_settings_fade);
-          
+
           lv_anim_init(&anim_circle_settings_fade);
           lv_anim_set_var(&anim_circle_settings_fade, id(circle_settings_widget));
           lv_anim_set_values(&anim_circle_settings_fade, 255, 0);
@@ -1348,7 +1348,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle_info_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle_info_fade);
-          
+
           lv_anim_t anim_info_fade;
           lv_anim_init(&anim_info_fade);
           lv_anim_set_var(&anim_info_fade, id(info_widget));

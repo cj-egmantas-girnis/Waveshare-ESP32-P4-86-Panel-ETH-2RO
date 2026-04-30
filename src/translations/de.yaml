@@ -6,7 +6,7 @@ ota:
   start:
     primary: "Starte OTA!"
     secondary: "Bitte warten..."
-  end: 
+  end:
     primary: "Update abgeschlossen!"
     secondary: "Starte neu..."
   error:
@@ -21,7 +21,7 @@ settings:
 sleep_time:
   never: "Nie"
   minute1: "1 Minute"
-  minute5: "5 Minuten" 
+  minute5: "5 Minuten"
   minute10: "10 Minuten"
   minute30: "30 Minuten"
   hour1: "1 Stunde"

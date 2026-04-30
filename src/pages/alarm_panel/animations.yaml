@@ -7,15 +7,15 @@ script:
     then:
       - lambda: |-
           ESP_LOGI("AP", "Switch to mode: %d, current: %d", target_mode, id(${widget_name}_current_mode));
-          
+
           if (id(is_animating)) {
             ESP_LOGW("MODE", "Switch ignored: animation in progress");
             return;
           }
-          
+
           int current = id(${widget_name}_current_mode);
           int target = target_mode;
-          
+
           id(is_animating) = true;
           id(${widget_name}_current_mode) = target;
 
@@ -51,8 +51,8 @@ script:
     then:
       - lambda: |-
           // Одновременно: кнопки уезжают, круг вниз, datetime исчезает
-          lv_anim_t anim_circle, anim_state_fade, anim_buttons;        
-          
+          lv_anim_t anim_circle, anim_state_fade, anim_buttons;
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 90, 600);
@@ -72,7 +72,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_buttons, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_buttons);
-          
+
           lv_anim_init(&anim_state_fade);
           lv_anim_set_var(&anim_state_fade, id(${widget_name}_state_widget));
           lv_anim_set_values(&anim_state_fade, 255, 0);
@@ -88,7 +88,7 @@ script:
       - lambda: |-
           // Одновременно изменяем размеры контейнеров И поднимаем middle_widget_background
           lv_anim_t anim_main_expand, anim_middle_shrink, anim_middle_move_down, anim_down_shrink, anim_down_move_down;
-          
+
           lv_anim_init(&anim_main_expand);
           lv_anim_set_var(&anim_main_expand, id(${widget_name}_main_background));
           lv_anim_set_values(&anim_main_expand, 270, 540);
@@ -98,7 +98,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_expand);
-          
+
           lv_anim_init(&anim_middle_shrink);
           lv_anim_set_var(&anim_middle_shrink, id(${widget_name}_primary_buttons_background));
           lv_anim_set_values(&anim_middle_shrink, 150, 0);
@@ -118,7 +118,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_down_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_down_shrink);
-          
+
 
           // Опускаем ${widget_name}_primary_buttons_background на 150px вниз
           lv_anim_init(&anim_middle_move_down);
@@ -147,9 +147,9 @@ script:
           lv_obj_clear_flag(id(${widget_name}_keypad_widget), LV_OBJ_FLAG_HIDDEN);
 
           lv_obj_set_style_opa(id(${widget_name}_keypad_widget), 0, 0);
-          
+
           lv_anim_t anim_keypad_fade;
-          
+
           lv_anim_init(&anim_keypad_fade);
           lv_anim_set_var(&anim_keypad_fade, id(${widget_name}_keypad_widget));
           lv_anim_set_values(&anim_keypad_fade, 0, 255);
@@ -159,7 +159,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_keypad_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_keypad_fade);
-          
+
       - delay: 150ms
       - lambda: |-
           id(is_animating) = false;
@@ -169,7 +169,7 @@ script:
     then:
       - lambda: |-
           lv_anim_t anim_keypad_fade;
-          
+
           lv_anim_init(&anim_keypad_fade);
           lv_anim_set_var(&anim_keypad_fade, id(${widget_name}_keypad_widget));
           lv_anim_set_values(&anim_keypad_fade, 255, 0);
@@ -184,7 +184,7 @@ script:
       - lambda: |-
           // Одновременно изменяем размеры контейнеров И поднимаем middle_widget_background
           lv_anim_t anim_main_shrink, anim_middle_expand, anim_middle_move_up, anim_down_expand, anim_down_move_up;
-          
+
           lv_anim_init(&anim_main_shrink);
           lv_anim_set_var(&anim_main_shrink, id(${widget_name}_main_background));
           lv_anim_set_values(&anim_main_shrink, 540, 270);
@@ -194,7 +194,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_shrink);
-          
+
           lv_anim_init(&anim_middle_expand);
           lv_anim_set_var(&anim_middle_expand, id(${widget_name}_primary_buttons_background));
           lv_anim_set_values(&anim_middle_expand, 0, 150);
@@ -214,7 +214,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_down_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_down_expand);
-          
+
           // Опускаем ${widget_name}_primary_buttons_background на 150px вниз
           lv_anim_init(&anim_middle_move_up);
           lv_anim_set_var(&anim_middle_move_up, id(${widget_name}_primary_buttons_background));
@@ -242,9 +242,9 @@ script:
           lv_obj_clear_flag(id(${widget_name}_primary_buttons_container), LV_OBJ_FLAG_HIDDEN);
 
           lv_obj_set_style_opa(id(${widget_name}_state_widget), 0, 0);
-          
+
           lv_anim_t anim_state_fade, anim_buttons;
-          
+
           lv_anim_init(&anim_state_fade);
           lv_anim_set_var(&anim_state_fade, id(${widget_name}_state_widget));
           lv_anim_set_values(&anim_state_fade, 0, 255);
@@ -264,7 +264,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_buttons, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_buttons);
-          
+
       - delay: 150ms
       - lambda: |-
           id(is_animating) = false;
@@ -274,8 +274,8 @@ script:
     then:
       - lambda: |-
           // Одновременно: кнопки уезжают, круг вниз, datetime исчезает
-          lv_anim_t anim_state_fade, anim_buttons;          
-          
+          lv_anim_t anim_state_fade, anim_buttons;
+
           lv_anim_init(&anim_state_fade);
           lv_anim_set_var(&anim_state_fade, id(${widget_name}_state_widget));
           lv_anim_set_values(&anim_state_fade, 255, 0);
@@ -300,7 +300,7 @@ script:
       - lambda: |-
           // Одновременно изменяем размеры контейнеров И поднимаем middle_widget_background
           lv_anim_t anim_main_expand, anim_middle_shrink, anim_middle_move_down, anim_down_shrink, anim_down_move_down;
-          
+
           lv_anim_init(&anim_main_expand);
           lv_anim_set_var(&anim_main_expand, id(${widget_name}_main_background));
           lv_anim_set_values(&anim_main_expand, 270, 540);
@@ -310,7 +310,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_expand);
-          
+
           lv_anim_init(&anim_middle_shrink);
           lv_anim_set_var(&anim_middle_shrink, id(${widget_name}_primary_buttons_background));
           lv_anim_set_values(&anim_middle_shrink, 150, 0);
@@ -330,8 +330,8 @@ script:
           });
           lv_anim_set_path_cb(&anim_down_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_down_shrink);
-          
-          
+
+
           // Опускаем ${widget_name}_primary_buttons_background на 150px вниз
           lv_anim_init(&anim_middle_move_down);
           lv_anim_set_var(&anim_middle_move_down, id(${widget_name}_primary_buttons_background));
@@ -359,9 +359,9 @@ script:
           lv_obj_clear_flag(id(${widget_name}_keypad_widget), LV_OBJ_FLAG_HIDDEN);
 
           lv_obj_set_style_opa(id(${widget_name}_keypad_widget), 0, 0);
-          
+
           lv_anim_t anim_keypad_fade;
-          
+
           lv_anim_init(&anim_keypad_fade);
           lv_anim_set_var(&anim_keypad_fade, id(${widget_name}_keypad_widget));
           lv_anim_set_values(&anim_keypad_fade, 0, 255);
@@ -371,7 +371,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_keypad_fade, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_keypad_fade);
-          
+
       - delay: 150ms
       - lambda: |-
           id(is_animating) = false;
@@ -383,7 +383,7 @@ script:
           lv_obj_add_flag(id(${widget_name}_primary_buttons_container), LV_OBJ_FLAG_HIDDEN);
 
           lv_anim_t anim_keypad_fade;
-          
+
           lv_anim_init(&anim_keypad_fade);
           lv_anim_set_var(&anim_keypad_fade, id(${widget_name}_keypad_widget));
           lv_anim_set_values(&anim_keypad_fade, 255, 0);
@@ -398,7 +398,7 @@ script:
       - lambda: |-
           // Одновременно изменяем размеры контейнеров И поднимаем middle_widget_background
           lv_anim_t anim_main_shrink, anim_middle_expand, anim_middle_move_up, anim_down_expand, anim_down_move_up;
-          
+
           lv_anim_init(&anim_main_shrink);
           lv_anim_set_var(&anim_main_shrink, id(${widget_name}_main_background));
           lv_anim_set_values(&anim_main_shrink, 540, 270);
@@ -408,7 +408,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_main_shrink, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_main_shrink);
-          
+
           lv_anim_init(&anim_middle_expand);
           lv_anim_set_var(&anim_middle_expand, id(${widget_name}_primary_buttons_background));
           lv_anim_set_values(&anim_middle_expand, 0, 150);
@@ -428,7 +428,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_down_expand, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_down_expand);
-          
+
           // Опускаем ${widget_name}_primary_buttons_background на 150px вниз
           lv_anim_init(&anim_middle_move_up);
           lv_anim_set_var(&anim_middle_move_up, id(${widget_name}_primary_buttons_background));
@@ -455,9 +455,9 @@ script:
           lv_obj_clear_flag(id(${widget_name}_state_widget), LV_OBJ_FLAG_HIDDEN);
 
           lv_obj_set_style_opa(id(${widget_name}_state_widget), 0, 0);
-          
+
           lv_anim_t anim_state_fade, anim_circle, anim_buttons;
-          
+
           lv_anim_init(&anim_state_fade);
           lv_anim_set_var(&anim_state_fade, id(${widget_name}_state_widget));
           lv_anim_set_values(&anim_state_fade, 0, 255);
@@ -477,7 +477,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_buttons, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_buttons);
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 600, 90);
@@ -487,7 +487,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
       - delay: 150ms
       - lambda: |-
           id(is_animating) = false;
@@ -497,10 +497,10 @@ script:
     then:
       - lambda: |-
           ESP_LOGI("AP", "Direct transition: DISARMED -> ARMED");
-          
+
           // Скрываем кнопки
           lv_obj_add_flag(id(${widget_name}_primary_buttons_container), LV_OBJ_FLAG_HIDDEN);
-          
+
           // Анимация исчезновения state_widget
           lv_anim_t anim_state_fade;
           lv_anim_init(&anim_state_fade);
@@ -518,9 +518,9 @@ script:
           // Обновляем иконку и цвет (уже обновлено в text_sensor)
           // Анимация появления state_widget с новой иконкой
           lv_obj_set_style_opa(id(${widget_name}_state_widget), 0, 0);
-          
+
           lv_anim_t anim_state_appear, anim_circle;
-          
+
           lv_anim_init(&anim_state_appear);
           lv_anim_set_var(&anim_state_appear, id(${widget_name}_state_widget));
           lv_anim_set_values(&anim_state_appear, 0, 255);
@@ -530,7 +530,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_state_appear, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_state_appear);
-          
+
           // Круг поднимается вверх
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
@@ -541,7 +541,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
       - delay: 600ms
       - lambda: |-
           id(is_animating) = false;
@@ -551,10 +551,10 @@ script:
     then:
       - lambda: |-
           ESP_LOGI("AP", "Direct transition: ARMED -> DISARMED");
-          
+
           // Круг опускается вниз
           lv_anim_t anim_circle, anim_state_fade;
-          
+
           lv_anim_init(&anim_circle);
           lv_anim_set_var(&anim_circle, id(${widget_name}_circle_background));
           lv_anim_set_values(&anim_circle, 90, 600);
@@ -564,7 +564,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_circle, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_circle);
-          
+
           // Исчезновение state_widget
           lv_anim_init(&anim_state_fade);
           lv_anim_set_var(&anim_state_fade, id(${widget_name}_state_widget));
@@ -582,9 +582,9 @@ script:
           // Появление state_widget с новой иконкой
           lv_obj_clear_flag(id(${widget_name}_primary_buttons_container), LV_OBJ_FLAG_HIDDEN);
           lv_obj_set_style_opa(id(${widget_name}_state_widget), 0, 0);
-          
+
           lv_anim_t anim_state_appear;
-          
+
           lv_anim_init(&anim_state_appear);
           lv_anim_set_var(&anim_state_appear, id(${widget_name}_state_widget));
           lv_anim_set_values(&anim_state_appear, 0, 255);
@@ -594,7 +594,7 @@ script:
           });
           lv_anim_set_path_cb(&anim_state_appear, lv_anim_path_ease_in_out);
           lv_anim_start(&anim_state_appear);
-          
+
       - delay: 300ms
       - lambda: |-
           id(is_animating) = false;
@@ -604,20 +604,20 @@ script:
     then:
       - lambda: |-
           ESP_LOGI("AP", "Init to DISARMED");
-          
+
           // Устанавливаем начальные позиции без анимации
           lv_obj_set_y(id(${widget_name}_circle_background), 600);  // Круг внизу
           lv_obj_set_height(id(${widget_name}_main_background), 270);
           lv_obj_set_height(id(${widget_name}_primary_buttons_background), 150);
           lv_obj_set_height(id(${widget_name}_secondary_buttons_background), 90);
-          
+
           // Показываем нужные элементы
           lv_obj_clear_flag(id(${widget_name}_state_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_clear_flag(id(${widget_name}_primary_buttons_container), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_keypad_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(${widget_name}_state_widget), 255, 0);
-          
+
           id(is_animating) = false;
 
   # 7. INIT -> ARMED (первая загрузка в состоянии ARMED)
@@ -625,7 +625,7 @@ script:
     then:
       - lambda: |-
           ESP_LOGI("AP", "Init to ARMED");
-          
+
           // Устанавливаем начальные позиции без анимации
           lv_obj_set_y(id(${widget_name}_circle_background), 90);  // Круг вверху
           lv_obj_set_height(id(${widget_name}_main_background), 270);
@@ -636,8 +636,8 @@ script:
           lv_obj_clear_flag(id(${widget_name}_state_widget), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_primary_buttons_container), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_keypad_widget), LV_OBJ_FLAG_HIDDEN);
-          
+
           lv_obj_set_style_opa(id(${widget_name}_state_widget), 255, 0);
-          
+
           id(is_animating) = false;
 

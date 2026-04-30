@@ -69,7 +69,7 @@ binary_sensor:
                 entity_id: "${light_entity}"
           - lambda: |-
               ESP_LOGD("light_btn", "Short press - toggling light");
-      
+
       # Долгое нажатие - переключение режима
       - min_length: 800ms
         max_length: 3000ms
@@ -77,7 +77,7 @@ binary_sensor:
           - if:
               condition:
                 lambda: |-
-                  return id(${widget_name}_supports_color_temp) && 
+                  return id(${widget_name}_supports_color_temp) &&
                          (id(${widget_name}_supports_hs) || id(${widget_name}_supports_rgb));
               then:
                 # ✅ Сохраняем старый режим и переключаем на новый
@@ -85,16 +85,16 @@ binary_sensor:
                     id(light_previous_mode) = id(${widget_name}_current_mode);
                     id(${widget_name}_is_temp_mode) = !id(${widget_name}_is_temp_mode);
                     id(${widget_name}_current_mode) = id(${widget_name}_is_temp_mode) ? 2 : 3;
-                    
-                    ESP_LOGD("light_btn", "Long press - mode switch: %d → %d", 
+
+                    ESP_LOGD("light_btn", "Long press - mode switch: %d → %d",
                       id(light_previous_mode), id(${widget_name}_current_mode));
-                
+
                 # ✅ Запускаем анимацию перехода
                 - script.execute:
                     id: ${widget_name}_start_lights_animation
                     from_mode: !lambda 'return id(light_previous_mode);'
                     to_mode: !lambda 'return id(${widget_name}_current_mode);'
-              
+
               else:
                 - lambda: |-
                     ESP_LOGD("light_btn", "Long press ignored - only one color mode supported");
@@ -182,13 +182,13 @@ text_sensor:
             - if:
                 condition:
                   lambda: |-
-                    return !id(${widget_name}_is_temp_mode) && 
+                    return !id(${widget_name}_is_temp_mode) &&
                            (id(${widget_name}_supports_hs) || id(${widget_name}_supports_rgb));
                 then:
                   - lvgl.slider.update:
                       id: ${widget_name}_light_saturation_slider
                       value: !lambda return id(${widget_name}_current_saturation);
-            
+
             # НОВОЕ: Обновляем цвет лампочки при изменении HS от HA
             # Но только если мы в режиме HS
             - if:
@@ -205,20 +205,20 @@ text_sensor:
     on_value:
       - lambda: |-
           std::string modes = x;
-          
+
           id(${widget_name}_supports_color_temp) = (modes.find("color_temp") != std::string::npos);
           id(${widget_name}_supports_hs) = (modes.find("hs") != std::string::npos);
           id(${widget_name}_supports_rgb) = (modes.find("rgb") != std::string::npos);
-          
+
           id(${widget_name}_supports_brightness) = (
             modes.find("brightness") != std::string::npos ||
             id(${widget_name}_supports_hs) ||
             id(${widget_name}_supports_rgb) ||
             id(${widget_name}_supports_color_temp)
           );
-          
+
           int new_mode = 0;
-          
+
           if (id(${widget_name}_supports_hs) || id(${widget_name}_supports_rgb)) {
             new_mode = 3;
             id(${widget_name}_is_temp_mode) = false;
@@ -230,17 +230,17 @@ text_sensor:
           } else {
             new_mode = 0;
           }
-          
+
           id(${widget_name}_current_mode) = new_mode;
           id(${widget_name}_data_loaded) = true;  // ✅ ДОБАВЛЕНО
-          
+
           ESP_LOGD("light_widget", "Mode determined: %d, data loaded", new_mode);
 
   - platform: homeassistant
     id: ${widget_name}_light_name
     entity_id: "${light_entity}"
     attribute: friendly_name
-    on_value: 
+    on_value:
       then:
         - lvgl.label.update:
             id: ${widget_name}_name_label
@@ -295,31 +295,31 @@ lvgl:
             condition:
               lambda: 'return id(${widget_name}_data_loaded);'
             timeout: 35s
-        
+
         - lambda: |-
             ESP_LOGD("light_page", "Page loaded, data ready");
-            ESP_LOGD("light_page", "Current mode: %d, Previous mode: %d", 
+            ESP_LOGD("light_page", "Current mode: %d, Previous mode: %d",
               id(${widget_name}_current_mode), id(light_previous_mode));
-        
+
         # ✅ СНАЧАЛА УСТАНАВЛИВАЕМ ВИДЖЕТЫ В СОСТОЯНИЕ previous_mode
         - script.execute:
             id: ${widget_name}_set_widgets_to_mode
             mode: !lambda 'return id(light_previous_mode);'
-        
+
         # ✅ НЕБОЛЬШАЯ ЗАДЕРЖКА ДЛЯ ПРИМЕНЕНИЯ СОСТОЯНИЯ
         - delay: 50ms
-        
+
         # ✅ ТЕПЕРЬ АНИМИРУЕМ К current_mode
         - script.execute:
             id: ${widget_name}_start_lights_animation
             from_mode: !lambda 'return id(light_previous_mode);'
             to_mode: !lambda 'return id(${widget_name}_current_mode);'
-        
+
         # ✅ ПОСЛЕ АНИМАЦИИ СОХРАНЯЕМ ТЕКУЩИЙ КАК ПРЕДЫДУЩИЙ
         - delay: 1500ms  # Ждём окончания самой длинной анимации
         - lambda: |-
             id(light_previous_mode) = id(${widget_name}_current_mode);
-            ESP_LOGD("light_page", "Animation finished, saved previous_mode: %d", 
+            ESP_LOGD("light_page", "Animation finished, saved previous_mode: %d",
               id(light_previous_mode));
 
       widgets:
@@ -410,7 +410,7 @@ lvgl:
                     radius: 15
                   knob:
                     bg_opa: transp
-                  
+
                   # НОВОЕ: on_value для обновления цвета лампочки в реальном времени
                   on_value:
                     - globals.set:
@@ -422,7 +422,7 @@ lvgl:
                           format: "%.0f%%"
                           args: [x / 255.0 * 100.0]
                     - script.execute: ${widget_name}_update_lightbulb_color
-                  
+
                   on_release:
                     - homeassistant.action:
                         action: light.turn_on
@@ -446,14 +446,14 @@ lvgl:
                     radius: 15
                   knob:
                     bg_opa: transp
-                  
+
                   # НОВОЕ: on_value для обновления цвета лампочки в реальном времени
                   on_value:
                     - globals.set:
                         id: ${widget_name}_current_saturation
                         value: !lambda return x;
                     - script.execute: ${widget_name}_update_lightbulb_color
-                  
+
                   on_release:
                     - homeassistant.action:
                         action: light.turn_on
@@ -538,7 +538,7 @@ lvgl:
             shadow_opa: transp
             border_opa: transp
             border_width: 0
-          
+
         - obj:
             id: ${widget_name}_circle_background_secondary
             hidden: true
@@ -620,7 +620,7 @@ lvgl:
                     format: "%.0f%%"
                     args: [x / 255.0 * 100.0]
               - script.execute: ${widget_name}_update_lightbulb_color
-            
+
             on_release:
               - homeassistant.action:
                   action: light.turn_on
@@ -715,7 +715,7 @@ lvgl:
                   variables:
                     hue: !lambda return x;
                     sat: !lambda return id(${widget_name}_current_saturation);
-          
+
 
         - obj:
             id: ${widget_name}_circle_btn_bg
@@ -770,7 +770,7 @@ lvgl:
                   border_opa: transp
                   border_width: 0
                   shadow_opa: transp
-                  radius: 22 
+                  radius: 22
             on_click:
               - lvgl.page.show: home_page
               - lvgl.widget.hide: room_select_widget
@@ -785,19 +785,19 @@ script:
     then:
       - lambda: |-
           int r = 255, g = 255, b = 255;
-          
+
           // ═══════════════════════════════════════════════════════════════════
           // ПРОВЕРЯЕМ: Поддерживает ли лампа цветовые режимы?
           // ═══════════════════════════════════════════════════════════════════
-          bool has_color_modes = id(${widget_name}_supports_hs) || 
-                                 id(${widget_name}_supports_rgb) || 
+          bool has_color_modes = id(${widget_name}_supports_hs) ||
+                                 id(${widget_name}_supports_rgb) ||
                                  id(${widget_name}_supports_color_temp);
-          
+
           // ═══════════════════════════════════════════════════════════════════
           // ПРОВЕРЯЕМ: Включена ли лампа?
           // ═══════════════════════════════════════════════════════════════════
           bool is_light_on = id(${widget_name}_light_state).state;
-          
+
           if (!is_light_on) {
             // ═════════════════════════════════════════════════════════════════
             // ЛАМПА ВЫКЛЮЧЕНА → СЕРЫЙ ЦВЕТ (независимо от режима)
@@ -805,22 +805,22 @@ script:
             r = 155;
             g = 162;
             b = 188;
-            
+
           } else if (has_color_modes) {
             // ═════════════════════════════════════════════════════════════════
             // РЕЖИМ 1: ЛАМПА ВКЛЮЧЕНА + ПОДДЕРЖКА ЦВЕТА (HS/RGB/ColorTemp)
             // ═════════════════════════════════════════════════════════════════
-            
+
             if (id(${widget_name}_is_temp_mode)) {
               // ───────────────────────────────────────────────────────────────
               // ПОДРЕЖИМ: ЦВЕТОВАЯ ТЕМПЕРАТУРА (Color Temp)
               // Конвертируем Kelvin → RGB
               // ───────────────────────────────────────────────────────────────
               float temp = id(${widget_name}_current_color_temp) / 100.0;
-              
+
               // Алгоритм конвертации цветовой температуры в RGB
               // Источник: Tanner Helland algorithm
-              
+
               // Красный канал
               if (temp <= 66) {
                 r = 255;
@@ -829,7 +829,7 @@ script:
                 r = 329.698727446 * pow(r, -0.1332047592);
                 r = (r < 0) ? 0 : ((r > 255) ? 255 : r);
               }
-              
+
               // Зеленый канал
               if (temp <= 66) {
                 g = temp;
@@ -839,7 +839,7 @@ script:
                 g = 288.1221695283 * pow(g, -0.0755148492);
               }
               g = (g < 0) ? 0 : ((g > 255) ? 255 : g);
-              
+
               // Синий канал
               if (temp >= 66) {
                 b = 255;
@@ -849,8 +849,8 @@ script:
                 b = temp - 10;
                 b = 138.5177312231 * log(b) - 305.0447927307;
                 b = (b < 0) ? 0 : ((b > 255) ? 255 : b);
-              }            
-              
+              }
+
             } else {
               // ───────────────────────────────────────────────────────────────
               // ПОДРЕЖИМ: HUE/SATURATION (HS)
@@ -859,13 +859,13 @@ script:
               float h = id(${widget_name}_current_hue);
               float s = id(${widget_name}_current_saturation) / 100.0;
               float v = 1.0; // Используем полную яркость для отображения цвета
-              
+
               float c = v * s;
               float x = c * (1 - fabs(fmod(h / 60.0, 2) - 1));
               float m = v - c;
-              
+
               float r_prime, g_prime, b_prime;
-              
+
               if (h >= 0 && h < 60) {
                 r_prime = c; g_prime = x; b_prime = 0;
               } else if (h >= 60 && h < 120) {
@@ -879,28 +879,28 @@ script:
               } else {
                 r_prime = c; g_prime = 0; b_prime = x;
               }
-              
+
               r = (r_prime + m) * 255;
               g = (g_prime + m) * 255;
               b = (b_prime + m) * 255;
-              
+
             }
-            
+
             // ─────────────────────────────────────────────────────────────────
             // Применяем масштабирование яркости: 60% → 100%
             // ─────────────────────────────────────────────────────────────────
             float real_brightness = id(${widget_name}_current_brightness) / 255.0;
             float brightness_display = 0.6 + (real_brightness * 0.4);
-            
+
             r = r * brightness_display;
             g = g * brightness_display;
-            b = b * brightness_display;     
-            
+            b = b * brightness_display;
+
           } else {
             // ═════════════════════════════════════════════════════════════════
             // РЕЖИМ 2: ЛАМПА ВКЛЮЧЕНА + БЕЗ ЦВЕТА (brightness/onoff)
             // ═════════════════════════════════════════════════════════════════
-            
+
             // ───────────────────────────────────────────────────────────────
             // ЛАМПА ВКЛЮЧЕНА → ЖЕЛТЫЙ ЦВЕТ
             // ───────────────────────────────────────────────────────────────
@@ -912,27 +912,27 @@ script:
             if (id(${widget_name}_supports_brightness)) {
               float real_brightness = id(${widget_name}_current_brightness) / 255.0;
               float brightness_display = 0.6 + (real_brightness * 0.4);
-              
+
               r = r * brightness_display;
               g = g * brightness_display;
               b = b * brightness_display;
-              
+
             } else {
               // Без brightness - просто желтый
               r = 231;
               g = 193;
               b = 44;
-              
+
             }
           }
-          
+
           // ═══════════════════════════════════════════════════════════════════
           // ПРИМЕНЕНИЕ ЦВЕТА К ВИДЖЕТУ
           // ═══════════════════════════════════════════════════════════════════
-          
+
           // Формируем цвет в формате 0xRRGGBB
           uint32_t color = (r << 16) | (g << 8) | b;
-          
+
           // Устанавливаем цвет виджета лампочки
           lv_obj_set_style_bg_color(id(${widget_name}_state_icon_bg), lv_color_hex(color), 0);
           lv_obj_set_style_text_color(id(${widget_name}_state_icon), lv_color_hex(color), 0);
@@ -952,7 +952,7 @@ script:
     then:
       - lambda: |-
           ESP_LOGD("widgets", "Setting widgets to mode: %d", mode);
-          
+
           // Скрываем ВСЕ виджеты
           lv_obj_add_flag(id(${widget_name}_light_arc_state), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_light_arc_brightness), LV_OBJ_FLAG_HIDDEN);
@@ -966,7 +966,7 @@ script:
           lv_obj_add_flag(id(${widget_name}_light_saturation_slider), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_state_icon_bg), LV_OBJ_FLAG_HIDDEN);
           lv_obj_add_flag(id(${widget_name}_percentage_label), LV_OBJ_FLAG_HIDDEN);
-          
+
           // Устанавливаем дефолтные позиции
           lv_obj_set_x(id(room_select_widget), 0);
           lv_obj_set_x(id(${room_prefix}_light_select_widget), 0);
@@ -980,13 +980,13 @@ script:
           lv_obj_set_x(id(${widget_name}_state_icon_bg), -120);
           lv_obj_set_x(id(${widget_name}_percentage_label), -120);
           lv_obj_set_x(id(${widget_name}_light_brightness_slider), -120);
-          
+
           // ═══════════════════════════════════════════════════════════════════
           // РЕЖИМ 0: ONOFF
           // ═══════════════════════════════════════════════════════════════════
           if (mode == 0) {
             lv_obj_clear_flag(id(${widget_name}_light_arc_state), LV_OBJ_FLAG_HIDDEN);
-          
+
           // ═══════════════════════════════════════════════════════════════════
           // РЕЖИМ 1: BRIGHTNESS
           // ═══════════════════════════════════════════════════════════════════
@@ -1001,7 +1001,7 @@ script:
             lv_obj_set_height(id(${widget_name}_circle_background), 570);
             lv_obj_set_width(id(${widget_name}_circle_btn_bg), 415);
             lv_obj_set_height(id(${widget_name}_circle_btn_bg), 415);
-            
+
             lv_obj_clear_flag(id(${widget_name}_circle_background_secondary), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_light_arc_brightness), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_brightness_color_obj), LV_OBJ_FLAG_HIDDEN);
@@ -1024,7 +1024,7 @@ script:
             lv_obj_set_height(id(${widget_name}_circle_btn_bg), 415);
             lv_obj_set_x(id(${widget_name}_state_icon_bg), -240);
             lv_obj_set_x(id(${widget_name}_percentage_label), -240);
-            
+
             lv_obj_clear_flag(id(${widget_name}_circle_background_secondary), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_light_arc_color_temp), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_color_temp_gradient_obj), LV_OBJ_FLAG_HIDDEN);
@@ -1048,7 +1048,7 @@ script:
             lv_obj_set_height(id(${widget_name}_circle_btn_bg), 415);
             lv_obj_set_x(id(${widget_name}_state_icon_bg), -240);
             lv_obj_set_x(id(${widget_name}_percentage_label), -240);
-            
+
             lv_obj_clear_flag(id(${widget_name}_circle_background_secondary), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_light_arc_hue), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_hue_gradient_obj), LV_OBJ_FLAG_HIDDEN);
@@ -1057,5 +1057,5 @@ script:
             lv_obj_clear_flag(id(${widget_name}_state_icon_bg), LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(id(${widget_name}_percentage_label), LV_OBJ_FLAG_HIDDEN);
           }
-          
+
           ESP_LOGD("widgets", "Widgets set to mode %d", mode);
