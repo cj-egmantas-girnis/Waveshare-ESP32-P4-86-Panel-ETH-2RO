@@ -160,7 +160,7 @@ output:
   - platform: ledc
     id: backlight_
     pin: GPIO26
-    frequency: 100Hz
+    frequency: 1000Hz
     inverted: true
     min_power: 0.0
     max_power: 0.8 # To prevent overheating due to excessive lighting

@@ -34,6 +34,8 @@ cd src && ../.venv/bin/esphome logs main.yaml --device 192.168.1.27
 
 **Workflow:** After every change, validate with `esphome config` only. Do **not** flash automatically. Wait for an explicit "flash" / "build and flash" instruction — it may come after several changes.
 
+**Always flash via USB** (`/dev/tty.usbmodem5B5E1348751`). OTA is unreliable — use `esphome run main.yaml --device /dev/tty.usbmodem5B5E1348751 --no-logs` (run includes compile+upload). For upload-only (already compiled): `esphome upload main.yaml --device /dev/tty.usbmodem5B5E1348751` (no `--no-logs` on upload).
+
 If the USB port `/dev/tty.usbmodem5B5E1348751` is busy, check with `lsof /dev/tty.usbmodem*` and kill the holding process before retrying.
 
 Secrets go in `src/secrets.yaml` (gitignored). ESPHome build artifacts land in `src/.esphome/` (gitignored).
@@ -90,3 +92,66 @@ The venv uses **ESPHome 2026.3.3**. Do not upgrade to 2026.4.x — it has a regr
 - `src/assets/images/flags/` — includes `lt.png` (Lithuanian tricolor, generated)
 
 All font and image references are declared once in `src/common/fonts.yaml` and `src/common/images.yaml`.
+
+## Home Assistant installation
+
+HA URL: `http://192.168.1.253:8123/`  
+Device (panel) IP: `192.168.1.27`
+
+### Available entities (as of 2026-04-30)
+
+**weather**
+- `weather.home` ← used in `common/substitutions.yaml`
+
+**alarm_control_panel**
+- `alarm_control_panel.alarmo` ← used in `alarm_panel/substitutions.yaml` (panels_amount=1)
+
+**cover**
+- `cover.garage_door_garage_door` ← not wired yet (skipped)
+
+**media_player**
+- `media_player.esp32_p4_waveshare_1_esp32_p4_media_player` ← panel's own audio (used by radio page)
+- `media_player.samsung_q70_series_49`
+- `media_player.tv_samsung_q70_series_49`
+- `media_player.24075rp89g`
+- media_player page entity not configured yet
+
+**light** (mapped in `light/config.yaml`)
+
+Room 1 — Virtuvė:
+- `light.virtuve_pirmas_switch_1` — Sviestuvas
+- `light.virtuve_pirmas_switch_2` — Baras
+- `light.virtuves_antras_switch_1` — Led Virsus
+- `light.virtuves_antras_switch_2` — Led Apacia
+
+Room 2 — Virtuvė 2:
+- `light.virtuve_trecias_switch_1` — Viryklė
+- `light.virtuve_trecias_switch_2` — Trecias 2
+- `light.wled_virtuve` — WLED-virtuve
+
+Room 3 — Svetainė:
+- `light.shellydimmer2svetaine`
+
+Room 4 — Darbo kambarys:
+- `light.leds` — M5-Darbo-Kambarys LEDs
+- `light.philips_light_sread1` — Vaiku Staline Lempa
+
+Other lights (not wired to panel):
+- `light.philips_light_sread1_ambient_light`, `light.philips_light_sread2`, `light.philips_light_sread2_ambient_light`
+- `light.wled`, `light.wled_master`, `light.wled_segment_1`
+- `light.esp32_p4_waveshare_1_podsvetka` (panel backlight — do not control via light page)
+
+**sensor — temperature/humidity** (BLE, all indoor)
+- `sensor.temperature_humidity_sensor_5c49_temperature/humidity` — 21.4°C / 55.4%
+- `sensor.temperature_humidity_sensor_5d59_temperature/humidity` — 21.7°C / 52.8%
+- `sensor.temperature_humidity_sensor_6b2e_temperature/humidity` — 21.8°C / 53.5%
+- `sensor.temperature_humidity_sensor_b7ab_temperature/humidity` — 22.8°C / 51.8%
+- `sensor.temperature_humidity_sensor_b82a_temperature/humidity` — 24.6°C / 47.3%
+- `sensor.nspanelvirtuve_temperature` — NSPanel in kitchen
+- No outdoor sensor — `temperature_entity` / `humidity_entity` in `common/substitutions.yaml` are wired to `sensor.temperature_humidity_sensor_5d59_*` (indoor BLE sensor used as home gauge)
+
+**climate / fan / vacuum** — none present in this HA installation; those pages show no live data
+
+### Weather forecast
+
+The weather tab calls `homeassistant.action: display_tools.get_forecasts` and subscribes to `sensor.display_tools_forecasts_daily` / `sensor.display_tools_forecasts_hourly`. These require the **Display Tools** HACS custom component (`alryaz/hass-display-tools`) installed in HA. Without it the tab buttons show but the forecast cards are empty. Time sync uses `platform: homeassistant` (in `home.yaml`).

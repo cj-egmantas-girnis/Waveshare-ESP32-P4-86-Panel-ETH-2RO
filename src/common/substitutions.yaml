@@ -6,9 +6,9 @@ friendly_name: ESP32-P4-86-Panel-ETH-2RO-1
 
 # ENTITIES
 
-weather_entity:           "weather.home_assistant"
-temperature_entity:       "sensor.outside_temperature"
-humidity_entity:          "sensor.outside_humidity"
+weather_entity:           "weather.home"
+temperature_entity:       "sensor.temperature_humidity_sensor_5d59_temperature"
+humidity_entity:          "sensor.temperature_humidity_sensor_5d59_humidity"
 
 
 

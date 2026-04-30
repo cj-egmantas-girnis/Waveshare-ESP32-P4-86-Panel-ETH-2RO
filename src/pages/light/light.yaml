@@ -64,7 +64,7 @@ binary_sensor:
         max_length: 500ms
         then:
           - homeassistant.action:
-              action: light.toggle
+              action: homeassistant.toggle
               data:
                 entity_id: "${light_entity}"
           - lambda: |-

@@ -123,13 +123,9 @@ switch:
       - script.execute: display_block_buttons
 
 time:
-  - platform: sntp
+  - platform: homeassistant
     id: sntp_time
-    timezone: "Europe/Vilnius"
-    servers:
-     - ntp0.ntp-servers.net
-     - ntp1.ntp-servers.net
-     - ntp2.ntp-servers.net
+    timezone: "${timezone}"
     on_time_sync:
       - script.execute: time_update
     on_time:
@@ -518,7 +514,7 @@ lvgl:
 
                     - label:
                         id: weather_wind_speed_value
-                        x: -135
+                        x: -175
                         y: 60
                         align: top_right
                         text_font: nunito_28
@@ -1119,7 +1115,7 @@ lvgl:
                   hidden: true
                   width: 660
                   height: 300
-                  align: center
+                  align: top_mid
                   clickable: false
                   radius: 30
                   pad_all: 0

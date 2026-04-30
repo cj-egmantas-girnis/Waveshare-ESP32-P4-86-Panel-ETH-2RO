@@ -8,10 +8,16 @@ packages:
       light_widget_name_2: "${room_name}_light2"
       light_widget_name_3: "${room_name}_light3"
       light_widget_name_4: "${room_name}_light4"
+      light_widget_name_5: "${room_name}_light5"
+      light_widget_name_6: "${room_name}_light6"
+      light_widget_name_7: "${room_name}_light7"
       light_icon_1: "${light_icon_1}"
       light_icon_2: "${light_icon_2}"
       light_icon_3: "${light_icon_3}"
       light_icon_4: "${light_icon_4}"
+      light_icon_5: "${light_icon_5}"
+      light_icon_6: "${light_icon_6}"
+      light_icon_7: "${light_icon_7}"
       lights_amount: "${lights_amount}"
 
   light_1: !include
@@ -40,4 +46,25 @@ packages:
     vars:
       light_entity: "${light_entity_4}"
       widget_name: "${room_name}_light4"
+      room_prefix: "${room_name}"
+
+  light_5: !include
+    file: light.yaml
+    vars:
+      light_entity: "${light_entity_5}"
+      widget_name: "${room_name}_light5"
+      room_prefix: "${room_name}"
+
+  light_6: !include
+    file: light.yaml
+    vars:
+      light_entity: "${light_entity_6}"
+      widget_name: "${room_name}_light6"
+      room_prefix: "${room_name}"
+
+  light_7: !include
+    file: light.yaml
+    vars:
+      light_entity: "${light_entity_7}"
+      widget_name: "${room_name}_light7"
       room_prefix: "${room_name}"

@@ -224,6 +224,15 @@ script:
       - lvgl.obj.update:
           id: room_name_1_light4_btn
           outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_1_light5_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_1_light6_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_1_light7_btn
+          outline_opa: transp
 
   # Переключение на комнату 2
   - id: switch_to_room_2
@@ -255,6 +264,15 @@ script:
           outline_opa: transp
       - lvgl.obj.update:
           id: room_name_2_light4_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_2_light5_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_2_light6_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_2_light7_btn
           outline_opa: transp
 
   # Переключение на комнату 3
@@ -288,6 +306,15 @@ script:
       - lvgl.obj.update:
           id: room_name_3_light4_btn
           outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_3_light5_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_3_light6_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_3_light7_btn
+          outline_opa: transp
 
   # Переключение на комнату 4
   - id: switch_to_room_4
@@ -320,4 +347,13 @@ script:
           outline_opa: transp
       - lvgl.obj.update:
           id: room_name_4_light4_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_4_light5_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_4_light6_btn
+          outline_opa: transp
+      - lvgl.obj.update:
+          id: room_name_4_light7_btn
           outline_opa: transp
