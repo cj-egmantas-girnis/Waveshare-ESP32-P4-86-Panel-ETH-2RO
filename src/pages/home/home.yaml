@@ -2519,8 +2519,9 @@ script:
           char* tz_env = getenv("TZ");
           ESP_LOGI("TZ_TEST", "System TZ env: %s", tz_env ? tz_env : "NOT SET");
 
-          // ESPHome timezone
-          ESP_LOGI("TZ_TEST", "ESPHome timezone: %s", id(sntp_time).get_timezone().c_str());
+          // ESPHome timezone (get_timezone() not available in ESPHome 2026.3.x)
+          // ESP_LOGI("TZ_TEST", "ESPHome timezone: %s", id(sntp_time).get_timezone().c_str());
+          //ESP_LOGI("tag", "Timezone: Europe/Vilnius");
 
           // Time valid?
           ESP_LOGI("TZ_TEST", "Time valid: %s", id(sntp_time).now().is_valid() ? "YES" : "NO");

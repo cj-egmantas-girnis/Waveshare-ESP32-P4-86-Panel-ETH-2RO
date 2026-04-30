@@ -4,3 +4,4 @@
 /esp-idf/
 /.DS_Store
 /.vscode/
+/.venv/
