@@ -514,7 +514,7 @@ lvgl:
 
                     - label:
                         id: weather_wind_speed_value
-                        x: -175
+                        x: -155
                         y: 60
                         align: top_right
                         text_font: nunito_28
