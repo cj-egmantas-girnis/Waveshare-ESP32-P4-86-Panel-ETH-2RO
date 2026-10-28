@@ -285,6 +285,34 @@ text_sensor:
 
 lvgl:
 
+  top_layer:
+    widgets:
+      # Touch lock overlay (shown when display_lock_switch is ON). Swallows every touch;
+      # a long press that lands on display_lock_btn toggles the lock off.
+      - obj:
+          id: lock_overlay
+          hidden: true
+          width: 720
+          height: 720
+          align: center
+          clickable: true
+          bg_opa: transp
+          border_opa: transp
+          shadow_opa: transp
+          radius: 0
+          pad_all: 0
+          on_long_press:
+            - lambda: |-
+                lv_indev_t *indev = lv_indev_get_act();
+                if (indev == nullptr) return;
+                lv_point_t p;
+                lv_indev_get_point(indev, &p);
+                lv_area_t a;
+                lv_obj_get_coords(id(display_lock_btn), &a);
+                if (p.x >= a.x1 && p.x <= a.x2 && p.y >= a.y1 && p.y <= a.y2) {
+                  id(display_lock_switch).toggle();
+                }
+
   on_idle:
     timeout: !lambda "return (id(display_timeout_backlight).state * 60 * 1000);"
     then:
@@ -568,7 +596,7 @@ lvgl:
                     - label:
                         id: wifi_signal_info_label
                         x: 30
-                        y: 45
+                        y: 30
                         align: top_left
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -576,15 +604,31 @@ lvgl:
                     - label:
                         id: wifi_signal_info_state
                         x: -30
-                        y: 45
+                        y: 30
                         align: top_right
                         text_font: nunito_28
                         text_color: color_misty_blue
                         text: "-59 dBm"
                     - label:
+                        id: ha_info_label
+                        x: 30
+                        y: 87
+                        align: top_left
+                        text_font: nunito_28
+                        text_color: color_misty_blue
+                        text: "Home Assistant:"
+                    - label:
+                        id: ha_info_state
+                        x: -30
+                        y: 87
+                        align: top_right
+                        text_font: nunito_28
+                        text_color: color_steel_blue
+                        text: "Disconnected"
+                    - label:
                         id: ip_address_info_label
                         x: 30
-                        y: 105
+                        y: 144
                         align: top_left
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -592,7 +636,7 @@ lvgl:
                     - label:
                         id: ip_address_info_state
                         x: -30
-                        y: 105
+                        y: 144
                         align: top_right
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -600,7 +644,7 @@ lvgl:
                     - label:
                         id: mac_address_info_label
                         x: 30
-                        y: 165
+                        y: 201
                         align: top_left
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -608,7 +652,7 @@ lvgl:
                     - label:
                         id: mac_address_info_state
                         x: -30
-                        y: 165
+                        y: 201
                         align: top_right
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -616,7 +660,7 @@ lvgl:
                     - label:
                         id: esphome_version_info_label
                         x: 30
-                        y: 225
+                        y: 258
                         align: top_left
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -624,7 +668,7 @@ lvgl:
                     - label:
                         id: esphome_version_info_state
                         x: -30
-                        y: 225
+                        y: 258
                         align: top_right
                         text_font: nunito_28
                         text_color: color_misty_blue
@@ -1651,6 +1695,9 @@ script:
   #             id: weather_forecast_hourly_btn
   #             clickable: false
 
+  # Touch lock: a transparent top_layer overlay (lock_overlay) swallows all touches while locked,
+  # so new widgets are blocked automatically. Unlock = long press on the lock button's area
+  # (handled by the overlay itself, see lock_overlay in lvgl.top_layer).
   - id: display_block_buttons
     mode: restart
     then:
@@ -1658,37 +1705,15 @@ script:
           condition:
             switch.is_off: display_lock_switch
           then:
+            - lvgl.widget.hide: lock_overlay
             - lvgl.label.update:
                 id: lock_status
                 text_color: color_steel_blue
-            - lvgl.button.update: { id: backlight_brightness_off_btn, clickable: true }
-            - lvgl.button.update: { id: home_widget_btn, clickable: true }
-            - lvgl.button.update: { id: weather_widget_btn, clickable: true }
-            - lvgl.button.update: { id: info_widget_btn, clickable: true }
-            - lvgl.button.update: { id: settings_widget_btn, clickable: true }
-            - lvgl.button.update: { id: home_lights_btn, clickable: true }
-            - lvgl.button.update: { id: home_devices_btn, clickable: true }
-            - lvgl.button.update: { id: weather_forecast_daily_btn, clickable: true }
-            - lvgl.button.update: { id: weather_forecast_hourly_btn, clickable: true }
-            - lvgl.slider.update: { id: backlight_settings_brightness_slider, clickable: true }
-            - lvgl.roller.update: { id: backlight_settings_sleep_time_roller, clickable: true }
-            - lvgl.button.update: { id: circle_settings_widget_lang_btn, clickable: true }
           else:
+            - lvgl.widget.show: lock_overlay
             - lvgl.label.update:
                 id: lock_status
                 text_color: color_red
-            - lvgl.button.update: { id: backlight_brightness_off_btn, clickable: false }
-            - lvgl.button.update: { id: home_widget_btn, clickable: false }
-            - lvgl.button.update: { id: weather_widget_btn, clickable: false }
-            - lvgl.button.update: { id: info_widget_btn, clickable: false }
-            - lvgl.button.update: { id: settings_widget_btn, clickable: false }
-            - lvgl.button.update: { id: home_lights_btn, clickable: false }
-            - lvgl.button.update: { id: home_devices_btn, clickable: false }
-            - lvgl.button.update: { id: weather_forecast_daily_btn, clickable: false }
-            - lvgl.button.update: { id: weather_forecast_hourly_btn, clickable: false }
-            - lvgl.slider.update: { id: backlight_settings_brightness_slider, clickable: false }
-            - lvgl.roller.update: { id: backlight_settings_sleep_time_roller, clickable: false }
-            - lvgl.button.update: { id: circle_settings_widget_lang_btn, clickable: false }
 
   - id: update_weather_image
     then:

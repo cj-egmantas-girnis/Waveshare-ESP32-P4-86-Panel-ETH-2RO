@@ -8,6 +8,9 @@ lvgl:
     widgets:
       - obj:
           id: loading_page
+          # Boot splash is disabled so the UI never waits for Home Assistant.
+          # Connection state shows on the home status bar (ha_status) and Info page (ha_info_state).
+          hidden: true
           bg_color: color_slate_blue_gray
           pad_all: 0
           border_opa: transp
@@ -148,7 +151,6 @@ script:
             id(ha_connected) = true;
             lv_label_set_text(id(boot_homeassistant_label), "Home Assistant Connected!");
             lv_obj_add_flag(id(boot_homeassistant_spiner), LV_OBJ_FLAG_HIDDEN);
-            id(check_boot_status).execute();
           }
 
 api:
@@ -160,7 +162,11 @@ api:
           - script.execute: update_loading_page
           - lvgl.label.update:
               id: ha_status
-              text_color: color_blue
+              text_color: color_green
+          - lvgl.label.update:
+              id: ha_info_state
+              text: "Connected"
+              text_color: color_green
           - script.execute: on_ha_connected
 
 
@@ -174,4 +180,8 @@ api:
               value: 'false'
           - lvgl.label.update:
               id: ha_status
+              text_color: color_steel_blue
+          - lvgl.label.update:
+              id: ha_info_state
+              text: "Disconnected"
               text_color: color_steel_blue
