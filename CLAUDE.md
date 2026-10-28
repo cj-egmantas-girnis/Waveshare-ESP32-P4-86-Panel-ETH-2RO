@@ -40,6 +40,14 @@ If the USB port `/dev/tty.usbmodem5B5E1348751` is busy, check with `lsof /dev/tt
 
 Secrets go in `src/secrets.yaml` (gitignored). ESPHome build artifacts land in `src/.esphome/` (gitignored).
 
+## UI documentation for editing blocks
+
+Per-page maps of widgets, scripts, entity wiring and edit recipes are in `docs/claude/` (start with `docs/claude/README.md`; edit rules in `conventions.md`). Read the relevant page doc before changing a block, and update it when structure changes.
+
+## Desktop emulator
+
+`./run-emulator.sh` builds (only if sources changed) and runs the UI in an SDL window on the Mac, no flashing. Config is `src/emulator.yaml`; details in `README.md`. Validate real firmware with `esphome config src/main.yaml` as usual.
+
 ## Architecture
 
 ### Entry point
