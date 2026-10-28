@@ -2,6 +2,7 @@ packages:
   audio: !include services/audio.yaml
   loading: !include common/pages/loading.yaml
   home: !include pages/home/home.yaml
+  home_hardware: !include pages/home/hardware.yaml
   light: !include pages/light/config.yaml
   devices: !include common/pages/devices.yaml
   alarm_panel: !include pages/alarm_panel/config.yaml

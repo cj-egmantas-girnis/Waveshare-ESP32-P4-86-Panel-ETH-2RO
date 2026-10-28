@@ -1,0 +1,80 @@
+# ESP32-only sensors (chip temp, WiFi info). Split out so the desktop emulator can replace them (see src/emulator.yaml).
+sensor:
+  # Chip temperature
+  - platform: internal_temperature
+    name: "ESP32 Internal Temperature"
+    id: esp32_temperature
+    update_interval: 30s
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: circle_info_widget_cpu_state_value
+            text:
+              format: "%.1f°"
+              args: [id(esp32_temperature).state]
+
+  # WiFi Signal Strength in dBm
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: wifi_signal_db
+    update_interval: 30s
+    unit_of_measurement: "dBm"
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: wifi_signal_info_state
+            text:
+              format: "%.1f dBm"
+              args: [id(wifi_signal_db).state]
+
+  # WI-FI Signal Strength in %
+  - platform: wifi_signal
+    id: wifi_signal_percent
+    update_interval: 30s
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: wifi_status
+            text_color: !lambda |-
+              if (id(wifi_signal_percent).state > 0) {
+              return lv_color_hex(0x5CA848);
+              }
+              return lv_color_hex(0x5CA848);
+            text: !lambda |-
+              if (id(wifi_signal_percent).state > 0 && id(wifi_signal_percent).state < 26) {
+              return "${wifi_25_icon}";
+              } else if (id(wifi_signal_percent).state > 25 && id(wifi_signal_percent).state < 51) {
+              return "${wifi_50_icon}";
+              } else if (id(wifi_signal_percent).state > 50 && id(wifi_signal_percent).state < 76) {
+              return "${wifi_75_icon}";
+              } else if (id(wifi_signal_percent).state > 75) {
+              return "${wifi_100_icon}";
+              }
+              return "${wifi_100_icon}";
+
+
+text_sensor:
+  # IP address
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      id: wifi_ip_address
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: ip_address_info_state
+              text: !lambda return id(wifi_ip_address).state.c_str();
+
+  # MAC address
+  - platform: wifi_info
+    mac_address:
+      name: "WiFi MAC"
+      id: wifi_mac_address
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: mac_address_info_state
+              text: !lambda return id(wifi_mac_address).state.c_str();

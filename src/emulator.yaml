@@ -1,0 +1,197 @@
+# Desktop emulator: same UI packages as main.yaml, rendered in an SDL window on the host (no flashing).
+# Usage (from repo root):  .venv/bin/esphome compile src/emulator.yaml && .venv/bin/esphome run src/emulator.yaml
+# Hardware-only parts (audio, radio playback, relays, backlight PWM, wifi, OTA) are stubbed.
+
+packages:
+  loading: !include common/pages/loading.yaml
+  home: !include pages/home/home.yaml
+  light: !include pages/light/config.yaml
+  devices: !include common/pages/devices.yaml
+  alarm_panel: !include pages/alarm_panel/config.yaml
+  climate: !include pages/climate/climate.yaml
+  cover: !include pages/cover/config.yaml
+  fan: !include pages/fan/config.yaml
+  media_player: !include pages/media_player/media_player.yaml
+  radio: !include pages/radio/radio.yaml
+  vacuum: !include pages/vacuum/vacuum.yaml
+
+image: !include common/images.yaml
+font: !include common/fonts.yaml
+color: !include common/colors.yaml
+substitutions: !include common/substitutions.yaml
+
+external_components:
+  # Local copy of the i18n component with ESP32-only FreeRTOS debug lines guarded (host build has no FreeRTOS)
+  - source:
+      type: local
+      path: emu_components
+    components: [i18n]
+
+i18n:
+  id: i18n_translations
+  sources:
+    - translations/lt.yaml
+    - translations/en.yaml
+    - translations/es.yaml
+    - translations/fr.yaml
+    - translations/nl.yaml
+    - translations/pl.yaml
+    - translations/ru.yaml
+    - translations/si.yaml
+    - translations/it.yaml
+    - translations/de.yaml
+  default_locale: lt
+
+esphome:
+  name: ${name}-emu
+  friendly_name: ${friendly_name} (emulator)
+  platformio_options:
+    lib_deps:
+      - "bblanchon/ArduinoJson@^7.2.0"
+  includes:
+    - <sstream>
+    - <algorithm>
+    - <ArduinoJson.h>
+    - emu_compat.h
+  on_boot:
+    - priority: 400
+      then:
+        - lambda: |-
+            id(i18n_translations).set_current_locale(id(current_language));
+        - script.execute: update_loading_page
+    - priority: -100
+      then:
+        - lvgl.roller.update:
+            id: backlight_settings_sleep_time_roller
+            selected_index: !lambda return id(display_timeout);
+
+# Stand-ins for the ESP32-only sensors that live in pages/home/hardware.yaml on the real device
+sensor:
+  - platform: template
+    id: esp32_temperature
+    lambda: return 42.0;
+    update_interval: 30s
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: circle_info_widget_cpu_state_value
+            text:
+              format: "%.1f°"
+              args: [id(esp32_temperature).state]
+  - platform: template
+    id: wifi_signal_db
+    lambda: return -55.0;
+    update_interval: 30s
+    unit_of_measurement: "dBm"
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: wifi_signal_info_state
+            text:
+              format: "%.1f dBm"
+              args: [id(wifi_signal_db).state]
+  - platform: template
+    id: wifi_signal_percent
+    lambda: return 90.0;
+    update_interval: 30s
+    unit_of_measurement: "%"
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: wifi_status
+            text_color: !lambda return lv_color_hex(0x5CA848);
+            text: "${wifi_100_icon}"
+
+text_sensor:
+  - platform: template
+    id: wifi_ip_address
+    lambda: return {"192.168.1.99"};
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: ip_address_info_state
+            text: !lambda return id(wifi_ip_address).state.c_str();
+  - platform: template
+    id: wifi_mac_address
+    lambda: return {"AA:BB:CC:DD:EE:FF"};
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: mac_address_info_state
+            text: !lambda return id(wifi_mac_address).state.c_str();
+
+host:
+
+logger:
+  level: debug
+  logs:
+    lvgl: info
+
+api:
+  encryption:
+    key: !secret emulator_key
+
+display:
+  - platform: sdl
+    id: sdl_display
+    dimensions:
+      width: 720
+      height: 720
+
+touchscreen:
+  - platform: sdl
+    id: touchscreen_
+
+# Stub for the PWM-driven panel backlight (light.turn_on/off in the pages just toggles this)
+output:
+  - platform: template
+    id: backlight_
+    type: float
+    write_action:
+      - lambda: ""
+
+light:
+  - platform: monochromatic
+    name: "Backlight"
+    output: backlight_
+    id: display_backlight
+    restore_mode: ALWAYS_ON
+
+lvgl:
+  id: lvgl_component
+  buffer_size: 100%
+  byte_order: little_endian
+  touchscreens:
+    - touchscreen_id: touchscreen_
+      long_press_time: 5000ms
+      long_press_repeat_time: 400ms
+  page_wrap: false
+  top_layer:
+    widgets:
+      - obj:
+          id: ota_widget
+          hidden: true
+          width: 720
+          height: 720
+          align: center
+          clickable: false
+          bg_color: color_slate_blue_gray
+          border_opa: transp
+          shadow_opa: transp
+          radius: 0
+          widgets:
+            - label:
+                id: ota_label_primary
+                align: center
+                text: ""
+            - label:
+                id: ota_label_secondary
+                align: center
+                text: ""
+            - bar:
+                id: ota_bar_value
+                align: center
+                value: 0
+
+http_request:
+  verify_ssl: false

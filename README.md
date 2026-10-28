@@ -86,6 +86,51 @@
 - Install custom component for forecasts and covers for media player from [here](https://github.com/alaltitov/homeassistant-display-tools).
 - Copy repository to vscode or to esphome folder of your Home Assistant. Change substitutions.yaml and config.yaml your entities in all widgets (only in substitution, in code everything will be substituted automatically).
 
+## 🖥️ Desktop emulator
+
+Test UI changes without flashing the panel. The same LVGL pages run as a native macOS app and render in a 720×720 SDL window; the mouse works as the touchscreen.
+
+### One-time setup
+- ESPHome venv (the repo pins **2026.3.3**; 2026.4.x breaks `substitutions: !include`):
+  ```bash
+  python3.13 -m venv .venv
+  .venv/bin/pip install --only-binary cbor2 esphome==2026.3.3 fatfs-ng littlefs-python
+  ```
+- SDL2: `brew install sdl2-compat` (the script adds its `bin` to `PATH` itself).
+- Add an API key to `src/secrets.yaml` (`openssl rand -base64 32`):
+  ```yaml
+  emulator_key: "<base64 key>"
+  ```
+
+### Run
+```bash
+./run-emulator.sh              # rebuild only if sources changed, then launch
+./run-emulator.sh --build      # force rebuild
+./run-emulator.sh --no-build   # launch the last build
+```
+Ctrl+C in the terminal stops it (or `pkill -f emu/program`). The first build takes a few minutes; `esphome config` validation alone takes 2–4 minutes.
+
+### Real Home Assistant data
+Register the emulator in HA like any ESPHome device:
+1. Settings → Devices & Services → Add Integration → **ESPHome**
+2. Host: your Mac's IP, port `6053`, encryption key = `emulator_key`
+3. Device → Configure → enable **Allow the device to perform Home Assistant actions**
+
+The emulator is named `<name>-emu`, so it can be registered next to the real panel. Pressing controls in the emulator switches real entities.
+
+### How it works
+| File | Purpose |
+|---|---|
+| `src/emulator.yaml` | Host-platform config: same page packages as `main.yaml`, SDL display + touchscreen, stub backlight, template stand-ins for WiFi/chip-temperature sensors |
+| `src/pages/home/hardware.yaml` | ESP32-only sensors, split out of `home.yaml`; included by `main.yaml`, replaced in the emulator |
+| `src/emu_components/i18n/` | Local copy of the `i18n` component with ESP32-only FreeRTOS debug lines guarded (host build has no FreeRTOS) |
+| `src/emu_compat.h` | Host shims for ESP-IDF calls used in lambdas (`esp_random`) |
+
+### Limitations
+- Not emulated: audio / radio playback / voice assistant, relays, real backlight PWM and screen sleep, GT911 behaviour, PSRAM and performance limits.
+- Always do a final check on the real panel before shipping.
+- If you add new ESP32-only code (`esp_*`, `heap_caps_*`, FreeRTOS, `wifi_info`, ...) to a page, either guard it or add a stand-in in `emulator.yaml`, otherwise the emulator build breaks.
+
 ## 📖 Documentation
 - [ESPHome LVGL 8.4](https://esphome.io/components/lvgl/)
 
