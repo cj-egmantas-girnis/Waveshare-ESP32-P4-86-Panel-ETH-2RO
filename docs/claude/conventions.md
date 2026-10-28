@@ -30,7 +30,8 @@
 - Language switch: `circle_settings_widget_lang_btn` on home; `flag_icon_mapping` maps locale -> flag image.
 
 ## Navigation and back
-- Page change: `lvgl.page.show: <page_id>`. Sub-pages end with a `# BACK` / `# back` bar that returns to `home_page` (light pages also hide the room/light selector widgets; check the page's own block for exact behavior).
+- Page change: `lvgl.page.show: <page_id>`. Every sub-page ends with a `# BACK` / `# back` block: a 280×40 steel-blue pill at the bottom (`y: -20`, `radius: 20`, `pressed:` slate-blue) with the `${home_icon}` (`mdi_icons_36`) label, whose `on_click` returns to `home_page`. Pages add their own cleanup before that (light hides `room_select_widget` + the light selector, cover/alarm hide their selector, climate hides the fan/swing panels first).
+- This block is copy-pasted in light, fan, cover, alarm_panel, climate, media_player, radio and vacuum. A design change means editing all eight; climate keeps its own horizontal offset (none now; it is centered like the others). LVGL `ext_click_area` is not accepted by this ESPHome version, so enlarge the touch target by enlarging the pill itself. `mdi_icons_52` lacks the home glyph (36 and 42 have it).
 - Selector widgets (room, light, alarm, cover, fan) are separate floating widgets shown/hidden by lambdas using the `*_amount` substitutions.
 
 ## Gotchas

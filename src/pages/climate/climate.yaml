@@ -3119,29 +3119,24 @@ lvgl:
                           - script.execute: climate_update_adjust_buttons_color
         # BACK
         - obj:
-            x: 225  # 150 * 1.5
-            y: 0
-            width: 120  # 80 * 1.5
-            height: 105  # 70 * 1.5
-            align: bottom_left
-            bg_opa: transp
+            y: -20
+            width: 280
+            height: 40
+            align: bottom_mid
+            bg_color: color_steel_blue
             pad_all: 0
             border_opa: transp
             border_width: 0
             shadow_opa: transp
-            radius: 0
+            radius: 20
+            pressed:
+              bg_color: color_slate_blue_gray
             widgets:
-              - obj:
-                  y: -30  # -20 * 1.5
-                  width: 120  # 80 * 1.5
-                  height: 8  # 5 * 1.5 ≈ 8
-                  align: bottom_mid
-                  bg_color: color_steel_blue
-                  pad_all: 0
-                  border_opa: transp
-                  border_width: 0
-                  shadow_opa: transp
-                  radius: 23  # 15 * 1.5 ≈ 23
+              - label:
+                  align: center
+                  text_font: mdi_icons_36
+                  text_color: color_white
+                  text: "${home_icon}"
             on_click:
               - lvgl.widget.hide: climate_fan_modes_panel
               - lvgl.widget.hide: climate_swing_modes_panel

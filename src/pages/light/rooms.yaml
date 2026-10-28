@@ -4,6 +4,7 @@ packages:
     file: light_select.yaml
     vars:
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
       light_widget_name_1: "${room_name}_light1"
       light_widget_name_2: "${room_name}_light2"
       light_widget_name_3: "${room_name}_light3"
@@ -26,6 +27,7 @@ packages:
       light_entity: "${light_entity_1}"
       widget_name: "${room_name}_light1"
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
 
   light_2: !include
     file: light.yaml
@@ -33,6 +35,7 @@ packages:
       light_entity: "${light_entity_2}"
       widget_name: "${room_name}_light2"
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
 
   light_3: !include
     file: light.yaml
@@ -40,6 +43,7 @@ packages:
       light_entity: "${light_entity_3}"
       widget_name: "${room_name}_light3"
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
 
   light_4: !include
     file: light.yaml
@@ -47,6 +51,7 @@ packages:
       light_entity: "${light_entity_4}"
       widget_name: "${room_name}_light4"
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
 
   light_5: !include
     file: light.yaml
@@ -54,6 +59,7 @@ packages:
       light_entity: "${light_entity_5}"
       widget_name: "${room_name}_light5"
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
 
   light_6: !include
     file: light.yaml
@@ -61,6 +67,7 @@ packages:
       light_entity: "${light_entity_6}"
       widget_name: "${room_name}_light6"
       room_prefix: "${room_name}"
+      room_title: "${room_title}"
 
   light_7: !include
     file: light.yaml

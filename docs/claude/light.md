@@ -23,6 +23,7 @@ Naming: room prefix `room_name_N`; light widget name `room_name_N_lightM`; page 
 | How many lights a room shows | `config.yaml`, room `lights_amount` (1–7) |
 | How many rooms show | `config.yaml` `rooms_amount` (currently 3; room 4 is a placeholder `room4_placeholder`) |
 | Room icon | `room_icon_N` at top of `config.yaml` |
+| Room title shown in the light page header | `room_title` in the room's include vars (`config.yaml`); passed on via `rooms.yaml` to `light.yaml` |
 | Tab labels | Tabs are icon-only (no text): room icon in `room_select.yaml`, light icon in `light_select.yaml` |
 | Look of the light page | `light.yaml`, blocks listed below |
 | Animation between onoff/brightness/color temp/rgb | `animations.yaml` (`${widget_name}_animate_light_<from>_to_<to>`, started by `${widget_name}_start_lights_animation`) |
@@ -31,13 +32,13 @@ Current mapping (see `config.yaml` for truth): room 1 "Virtuvė" 7 lights, room 
 
 ## Blocks inside `light.yaml` (widget tree order, ids are `${widget_name}_…`)
 - Page `…_light_page`: `on_load` waits (35 s timeout) for `…_data_loaded`, calls `…_set_widgets_to_mode` then `…_start_lights_animation`.
-- `…_name_label`, `…_rooms_background`: header/name.
+- Header: `…_name_label` = room title (static `room_title` from `config.yaml`, nunito_30), `…_light_name_label` = light name (HA `friendly_name` of the light, nunito_24, filled by the `…_light_name` text sensor). `…_rooms_background` is the selector backdrop.
 - `…_state_background`: left info card — `…_state_icon_bg`/`…_state_icon`, `…_percentage_label`, `…_light_brightness_slider`, `…_light_saturation_slider`.
 - `…_entities_background`: light selector backdrop.
 - `# CIRCLE`: `…_circle_background`, gradient objects `…_color_temp_gradient_obj`, `…_hue_gradient_obj`, `…_brightness_color_obj`, `…_circle_background_secondary`.
 - Arcs: `…_light_arc_state`, `…_light_arc_brightness`, `…_light_arc_color_temp`, `…_light_arc_hue`; each `on_value` updates the globals and calls `…_update_lightbulb_color` for live preview.
 - Power button: `…_circle_btn_bg`, `…_circle_btn`, `…_switch_icon`.
-- `# BACK`: goes to `home_page` and hides `room_select_widget` + `${room_prefix}_light_select_widget`.
+- `# BACK`: home-icon pill (see conventions.md); goes to `home_page` and hides `room_select_widget` + `${room_prefix}_light_select_widget`.
 
 State/capabilities come from HA: sensors for brightness, color temp, HS color (`text_sensor`s), and globals `…_supports_color_temp|hs|rgb|brightness` decide which modes the page offers.
 

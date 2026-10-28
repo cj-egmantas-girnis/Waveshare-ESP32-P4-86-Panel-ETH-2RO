@@ -243,7 +243,7 @@ text_sensor:
     on_value:
       then:
         - lvgl.label.update:
-            id: ${widget_name}_name_label
+            id: ${widget_name}_light_name_label
             text: !lambda return x;
 
 
@@ -323,13 +323,23 @@ lvgl:
               id(light_previous_mode));
 
       widgets:
+        # Room title (static, from room_title in config.yaml)
         - label:
             id: ${widget_name}_name_label
-            y: 22
+            y: 14
             align: top_mid
             text_font: nunito_30
             text_color: color_misty_blue
-            text: "My Light"
+            text: "${room_title}"
+
+        # Light name (HA friendly_name of ${light_entity})
+        - label:
+            id: ${widget_name}_light_name_label
+            y: 54
+            align: top_mid
+            text_font: nunito_24
+            text_color: color_misty_blue
+            text: " "
 
         - obj:
             id: ${widget_name}_rooms_background
@@ -749,28 +759,24 @@ lvgl:
 
         # BACK
         - obj:
-            y: 0
-            width: 120
-            height: 105
+            y: -20
+            width: 280
+            height: 40
             align: bottom_mid
-            bg_opa: transp
+            bg_color: color_steel_blue
             pad_all: 0
             border_opa: transp
             border_width: 0
             shadow_opa: transp
-            radius: 0
+            radius: 20
+            pressed:
+              bg_color: color_slate_blue_gray
             widgets:
-              - obj:
-                  y: -30
-                  width: 120
-                  height: 8
-                  align: bottom_mid
-                  bg_color: color_steel_blue
-                  pad_all: 0
-                  border_opa: transp
-                  border_width: 0
-                  shadow_opa: transp
-                  radius: 22
+              - label:
+                  align: center
+                  text_font: mdi_icons_36
+                  text_color: color_white
+                  text: "${home_icon}"
             on_click:
               - lvgl.page.show: home_page
               - lvgl.widget.hide: room_select_widget

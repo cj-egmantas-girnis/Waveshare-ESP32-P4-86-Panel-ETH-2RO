@@ -288,6 +288,7 @@
   bpp: 4
   glyphs: [
     "\U000F07D0", # home assistant
+    "\U000F06A1", # display home (back button)
     "\U000F15FA", # windsock
     "\U000F068A", # shield home
     "\U000F1828", # shield moon
