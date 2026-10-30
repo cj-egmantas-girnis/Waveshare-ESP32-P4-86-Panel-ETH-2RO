@@ -20,9 +20,11 @@ substitutions: !include common/substitutions.yaml
 
 external_components:
 
-  - source: github://alaltitov/esphome@dev
+  # Local copy of the i18n component (originally from github://alaltitov/esphome@dev)
+  - source:
+      type: local
+      path: emu_components
     components: [i18n]
-    refresh: 1h
 
 
 i18n:
