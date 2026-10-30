@@ -314,17 +314,37 @@ lvgl:
                 }
 
   on_idle:
-    timeout: !lambda "return (id(display_timeout_backlight).state * 60 * 1000);"
-    then:
-      - if:
-          condition:
-            lambda: 'return id(display_timeout_backlight).state >= 0;'
-          then:
-            - logger.log: "LVGL is idle"
-            - light.turn_off: display_backlight
-            - lvgl.pause:
-          else:
-            - logger.log: "LVGL idle, but backlight is on"
+    - timeout: !lambda "return (id(display_timeout_backlight).state * 60 * 1000);"
+      then:
+        - if:
+            condition:
+              lambda: 'return id(display_timeout_backlight).state >= 0;'
+            then:
+              - logger.log: "LVGL is idle"
+              - light.turn_off: display_backlight
+              - lvgl.pause:
+            else:
+              - logger.log: "LVGL idle, but backlight is on"
+    # Return to home after 60 s without touch
+    - timeout: 60s
+      then:
+        - if:
+            condition:
+              not:
+                lvgl.page.is_showing: home_page
+            then:
+              # Same cleanup as the sub-pages' back button
+              - lvgl.widget.hide: room_select_widget
+              - lvgl.widget.hide: room_name_1_light_select_widget
+              - lvgl.widget.hide: room_name_2_light_select_widget
+              - lvgl.widget.hide: room_name_3_light_select_widget
+              - lvgl.widget.hide: room_name_4_light_select_widget
+              - lvgl.widget.hide: cover_select_widget
+              - lvgl.widget.hide: alarm_panel_select_widget
+              - lvgl.widget.hide: fan_select_widget
+              - lvgl.widget.hide: climate_fan_modes_panel
+              - lvgl.widget.hide: climate_swing_modes_panel
+              - lvgl.page.show: home_page
 
   pages:
     - id: home_page
